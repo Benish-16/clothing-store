@@ -1,24 +1,24 @@
 require("dotenv").config();
-const sgMail = require("@sendgrid/mail");
+const MailerSend = require("mailersend");
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const mailer = new MailerSend({
+  apiKey: process.env.MAILERSEND_API_KEY,
+});
 
-const sendEmail = async (email, subject, textMessage, htmlContent = null) => {
-  if (!email) throw new Error("Recipient email is missing");
-
-  const msg = {
-    to: email,
-    from: process.env.SENDGRID_FROM,
-    subject,
-    text: textMessage,
-    html: htmlContent || undefined,
-  };
-
+const sendEmail = async (to, subject, textMessage, htmlContent = null) => {
   try {
-    await sgMail.send(msg);
-    console.log("Email sent successfully to", email);
+    const response = await mailer.email.send({
+      from: process.env.MAILERSEND_FROM,
+      to: [to],
+      subject,
+      text: textMessage,
+      html: htmlContent || undefined,
+    });
+
+    console.log("Email sent successfully to", to);
+    return response;
   } catch (err) {
-    console.error("SendGrid Error:", err);
+    console.error("MailerSend Error:", err);
     throw err;
   }
 };
