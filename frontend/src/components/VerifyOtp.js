@@ -29,7 +29,7 @@ export default function VerifyOtp({ email, setStep, setOtpf }) {
         body: JSON.stringify({ email, otp: finalOtp }),
       });
 
-      const data = await res.json();
+      const _data = await res.json();
 
       if (res.ok) {
         showAlert("OTP verified", "success");
