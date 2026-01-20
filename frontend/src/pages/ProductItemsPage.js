@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function ProductItemsPage() {
       const navigate = useNavigate();
-const { user: _user } = useContext(authContext);
+const { user } = useContext(authContext);
   const { category, type } = useParams();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,7 +18,7 @@ const { user: _user } = useContext(authContext);
         const res = await fetch(
         `http://localhost:5000/api/product/fetchproduct?category=${category}&type=${type}`
         );
-        const _data = await res.json();
+        const data = await res.json();
         if (data.success) {
           setProducts(data.products);
         }
