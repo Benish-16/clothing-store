@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { Link } from "react-router-dom";
 import alertContext from "../context/alert/alertContext";
 export default function Footer() {
