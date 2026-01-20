@@ -34,10 +34,14 @@ router.post(
 
       const { name, description, price, category, type, variants } = req.body;
 
-      const typeDoc = await Type.findOne({
-        name: { $regex: `^${type}$`, $options: "i" },
-        category
-      });
+     const normalizedCategory =
+  category.charAt(0).toUpperCase() + category.slice(1).toLowerCase();
+
+const typeDoc = await Type.findOne({
+  name: { $regex: `^${type}$`, $options: "i" },
+  category: normalizedCategory,
+});
+
 
       if (!typeDoc) {
         return res.status(400).json({
