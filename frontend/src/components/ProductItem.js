@@ -37,7 +37,7 @@ const handleSizeClick = (size) => {
 const handleAddToCart = async () => {
   if (!selectedVariant || !selectedSize) return;
 
-  const _cartItem = {
+  const cartItem = {
     productId: product._id,
     color: selectedVariant.color,
     size: selectedSize,
