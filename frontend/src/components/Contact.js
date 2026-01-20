@@ -16,7 +16,7 @@ export default function Contact() {
       const token = localStorage.getItem("token");
     e.preventDefault();
 
-    const res = await fetch("http://localhost:5000/api/contact/add", {
+    const res = await fetch("https://clothing-store-backc.onrender.com/api/contact/add", {
       method: "POST",
       headers: { "Content-Type": "application/json","auth-token": token },
       body: JSON.stringify(form),
