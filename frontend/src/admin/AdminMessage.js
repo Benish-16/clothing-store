@@ -7,7 +7,7 @@ export default function AdminMessage() {
   useEffect(() => {
 
 
-    fetch("https://clothing-store-backc.onrender.com/admin/messages", {
+    fetch("https://clothing-store-backc.onrender.com/api/contact/admin/messages", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -24,7 +24,7 @@ export default function AdminMessage() {
 
   const sendReply = async (id) => {
       console.log(replyText[id]);
-    await fetch(`http://localhost:5000/api/contact/admin/messages/reply/${id}`, {
+    await fetch(`https://clothing-store-backc.onrender.com/api/contact/admin/messages/reply/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
