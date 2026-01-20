@@ -61,16 +61,22 @@ router.post(
   
   ],async(req,res)=>{
   const {email}=req.body;
+      console.log("SEND OTP HIT");
+  console.log("BODY:", req.body);
   try{
 
       const otp=Math.floor(Math.random()*999999);
+     console.log("OTP GENERATED:", otp);
       const newOpt= new orderOtp({
 email,
 otp
         });
+    
         await newOpt.save();
+       console.log("OTP SAVED");
         const message=`Your verification code for confirmation id ${otp} `;
         await sendEmail(email,"Reset Password",message);
+     console.log("EMAIL SENT");
         res.status(200).json({message:"otp send to your email"});
 }
  catch(error){
