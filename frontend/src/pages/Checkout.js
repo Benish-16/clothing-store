@@ -37,7 +37,7 @@ const { clearCart } = useCart();
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/order/sendotp", {
+      const res = await fetch("https://clothing-store-backc.onrender.com/api/order/sendotp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -64,7 +64,7 @@ const { clearCart } = useCart();
 
     try {
      
-      const verifyRes = await fetch("http://localhost:5000/api/order/verify-otp", {
+      const verifyRes = await fetch("https://clothing-store-backc.onrender.com/api/order/verify-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, otp: finalOtp }),
@@ -104,7 +104,7 @@ const { clearCart } = useCart();
       };
 
      
-      const orderRes = await fetch("http://localhost:5000/api/order/create", {
+      const orderRes = await fetch("https://clothing-store-backc.onrender.com/api/order/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -120,7 +120,7 @@ const { clearCart } = useCart();
         showAlert("Order placed successfully!", "success");
         navigate('/confirmation');
      
-           await fetch("http://localhost:5000/api/order/sendemail", {
+           await fetch("https://clothing-store-backc.onrender.com/api/order/sendemail", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
