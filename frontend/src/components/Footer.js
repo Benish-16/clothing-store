@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
+import alertContext from "../context/alert/alertContext";
 export default function Footer() {
+    const { showAlert } = useContext(alertContext);
   const [email, setEmail] = useState("");
 
   const handleSubscribe = async () => {
     if (!email) {
-      alert("Please enter an email");
+      showAlert("Please enter an email",'danger');
       return;
     }
 
@@ -25,11 +26,11 @@ export default function Footer() {
       
         setEmail("");
       } else {
-        alert(data.msg || "Already subscribed");
+        showAlert("Already subscribed",'danger');
       }
     } catch (error) {
       console.error(error);
-      alert("Server error");
+      showAlert("Server error",'danger');
     }
   };
 
