@@ -36,6 +36,7 @@ export default function AdminMessage() {
     });
 
     setReplyText(prev => ({ ...prev, [id]: "" }));
+     fetchMessages();
 
     
   };
