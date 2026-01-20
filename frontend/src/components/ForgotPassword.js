@@ -11,7 +11,7 @@ export default function ForgotPassword({ setStep, setEmail}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:5000/api/auth/forgotpassword", {
+    const res = await fetch("https://clothing-store-backc.onrender.com/api/auth/forgotpassword", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: emailInput }),
