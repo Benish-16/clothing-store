@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ForgotPassword from "./ForgotPassword";
 import VerifyOtp from "./VerifyOtp";
 import ResetPassword from "./ResetPassword";
-import Alert from "./Alert";
+
 
 export default function ForgotPasswordFlow() {
 
