@@ -7,9 +7,10 @@ const mailer = new MailerSend({
 
 const sendEmail = async (to, subject, textMessage, htmlContent = null) => {
   try {
+    // MailerSend requires 'to' as an array of objects
     const emailParams = new EmailParams()
-      .setFrom(process.env.MAILERSEND_FROM)
-      .setTo(to)
+      .setFrom(process.env.MAILERSEND_FROM) // verified sender
+      .setTo([{ email: to }])
       .setSubject(subject)
       .setText(textMessage);
 
