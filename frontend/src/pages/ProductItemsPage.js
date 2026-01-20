@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function ProductItemsPage() {
       const navigate = useNavigate();
-  const { user } = useContext(authContext);
+
   const { category, type } = useParams();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
