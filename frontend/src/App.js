@@ -45,7 +45,7 @@ function AppContent() {
         <Routes>
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/women" element={<Product category="women" />} />
+        <Route path="/Women" element={<Product category="Women" />} />
      <Route path="/edittype/:id" element={<EditType />} />
        
         <Route path="/men" element={<Product category="Men"   />} />
