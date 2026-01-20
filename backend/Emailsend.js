@@ -1,7 +1,7 @@
 require("dotenv").config();
 const { MailerSend, EmailParams } = require("mailersend");
 
-// Initialize MailerSend
+// Initialize MailerSend with API key
 const mailer = new MailerSend({ apiKey: process.env.MAILERSEND_API_KEY });
 
 const sendEmail = async (email, subject, textMessage, htmlContent = null) => {
@@ -11,21 +11,21 @@ const sendEmail = async (email, subject, textMessage, htmlContent = null) => {
 
   // Prepare email parameters
   const emailParams = new EmailParams()
-    .setFrom(process.env.MAILERSEND_FROM) // must be a verified sender
-    .setTo(email)                         // recipient
+    .setFrom(process.env.MAILERSEND_FROM) // verified sender
+    .setTo(email)
     .setSubject(subject)
-    .setText(textMessage);                // plain text
+    .setText(textMessage);
 
   if (htmlContent) {
-    emailParams.setHtml(htmlContent);     // optional HTML
+    emailParams.setHtml(htmlContent);
   }
 
   try {
-    const response = await mailer.emails.send(emailParams); // v2 correct
+    // ✅ Correct method for v2
+    const response = await mailer.emails.send(emailParams);
     console.log("Email sent successfully!", response);
     return response;
   } catch (err) {
-    // Better error logging
     if (err.response && err.response.body) {
       console.error("MailerSend API Error:", err.response.body);
     } else {
