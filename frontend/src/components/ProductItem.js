@@ -37,7 +37,7 @@ const handleSizeClick = (size) => {
 const handleAddToCart = async () => {
   if (!selectedVariant || !selectedSize) return;
 
-  const cartItem = {
+  const _cartItem = {
     productId: product._id,
     color: selectedVariant.color,
     size: selectedSize,
@@ -80,7 +80,7 @@ const deleteProduct = async (productId) => {
     }
   );
 
-  const data = await response.json();
+  const _data = await response.json();
 
   if (response.ok) {
     showAlert("Product deleted","success");
