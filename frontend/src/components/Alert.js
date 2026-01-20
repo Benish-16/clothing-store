@@ -7,7 +7,7 @@ export default function Alert() {
 
   if (!alert) return null;
 
-    const capitalize = (word)=>{
+    const _capitalize = (word)=>{
         const lower = word.toLowerCase();
         return lower.charAt(0).toUpperCase() + lower.slice(1);
     };
