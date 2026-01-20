@@ -6,7 +6,12 @@ const passport = require("passport");
 const jwt = require("jsonwebtoken");
 connectTOMongo();
 const app=express();
-const port=5000
+const PORT =  5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
 app.use(express.json());
 
 
