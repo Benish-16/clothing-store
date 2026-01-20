@@ -1,36 +1,33 @@
 require("dotenv").config();
-const { MailerSend, EmailParams } = require("mailersend");
+const axios = require("axios");
 
-// Initialize MailerSend with API key
-const mailer = new MailerSend({ apiKey: process.env.MAILERSEND_API_KEY });
-
-const sendEmail = async (email, subject, textMessage, htmlContent = null) => {
-  if (!email) {
-    throw new Error("Recipient email is missing");
-  }
-
-  // Prepare email parameters
-  const emailParams = new EmailParams()
-    .setFrom(process.env.MAILERSEND_FROM) // verified sender
-    .setTo(email)
-    .setSubject(subject)
-    .setText(textMessage);
-
-  if (htmlContent) {
-    emailParams.setHtml(htmlContent);
-  }
-
+const sendEmail = async (to, subject, text) => {
   try {
-    // ✅ Correct method for v2
-    const response = await mailer.emails.send(emailParams);
-    console.log("Email sent successfully!", response);
-    return response;
+    await axios.post(
+      "https://api.mailersend.com/v1/email",
+      {
+        from: {
+          email: process.env.MAILERSEND_FROM, // verified sender
+          name: "MINIMAL",
+        },
+        to: [{ email: to }],
+        subject,
+        text,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.MAILERSEND_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log("✅ Email sent");
   } catch (err) {
-    if (err.response && err.response.body) {
-      console.error("MailerSend API Error:", err.response.body);
-    } else {
-      console.error("MailerSend Error:", err);
-    }
+    console.error(
+      "❌ MailerSend error:",
+      err.response?.data || err.message
+    );
     throw err;
   }
 };
