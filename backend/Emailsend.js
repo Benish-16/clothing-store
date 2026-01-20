@@ -18,17 +18,18 @@ const sendEmail = async (email, subject, textMessage, htmlContent = null) => {
 
   // Prepare email parameters
   const emailParams = new EmailParams()
-    .setFrom(process.env.MAILERSEND_FROM) // MUST be a verified sender
-    .setTo([email])                       // recipient(s) as array
+    .setFrom(process.env.MAILERSEND_FROM) // must be a verified sender
+    .setTo([email])                       // recipient(s) must be array
     .setSubject(subject)
-    .setText(textMessage);                // plain text
+    .setText(textMessage);
 
   if (htmlContent) {
-    emailParams.setHtml(htmlContent);     // optional HTML
+    emailParams.setHtml(htmlContent);
   }
 
   try {
-    const response = await mailer.send(emailParams);
+    // Correct function to send email
+    const response = await mailer.emails.send(emailParams);
     console.log("Email sent successfully!", response);
     return response;
   } catch (err) {
