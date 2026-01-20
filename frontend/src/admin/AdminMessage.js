@@ -7,7 +7,7 @@ export default function AdminMessage() {
   useEffect(() => {
 
 
-    fetch("http://localhost:5000/api/contact/admin/messages", {
+    fetch("https://clothing-store-backc.onrender.com/admin/messages", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
