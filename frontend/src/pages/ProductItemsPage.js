@@ -18,7 +18,7 @@ const { user: _user } = useContext(authContext);
         const res = await fetch(
         `http://localhost:5000/api/product/fetchproduct?category=${category}&type=${type}`
         );
-        const data = await res.json();
+        const _data = await res.json();
         if (data.success) {
           setProducts(data.products);
         }
