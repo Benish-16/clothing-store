@@ -17,11 +17,16 @@ app.use(express.json());
 
 const corsOptions = {
   origin: "https://clothing-store-frontcheck.onrender.com",
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "auth-token"],
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
+
+
+app.options("*", cors(corsOptions));
+
 
 app.use('/api/auth',require('./routes/auth'))
 app.use('/api/product',require('./routes/product'))
