@@ -8,9 +8,18 @@ connectTOMongo();
 const app=express();
 const port=5000
 app.use(express.json());
-app.use(cors({
-  origin: "https://clothing-store-frontcheck.onrender.com",
-}));
+const corsOptions = {
+  origin: "https://clothing-store-frontcheck.onrender.com", // your frontend
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true, // if you use cookies or JWT in headers
+};
+
+app.use(cors(corsOptions));
+
+// Handle preflight OPTIONS requests
+app.options("*", cors(corsOptions));
+
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
