@@ -4,23 +4,31 @@ export default function AdminMessage() {
   const [messages, setMessages] = useState([]);
   const [replyText, setReplyText] = useState({});
     const token = localStorage.getItem("token");
-  useEffect(() => {
+  const fetchMessages = async () => {
+  try {
+    const res = await fetch(
+      "https://clothing-store-backc.onrender.com/api/contact/admin/messages",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": token,
+        },
+      }
+    );
 
+    if (!res.ok) throw new Error("Failed to fetch messages");
 
-    fetch("https://clothing-store-backc.onrender.com/api/contact/admin/messages", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "auth-token": token,
-      },
-    })
-      .then(res => {
-        if (!res.ok) throw new Error("Failed to fetch messages");
-        return res.json();
-      })
-      .then(data => setMessages(data.messages))
-      .catch(err => console.error(err));
-  }, []);
+    const data = await res.json();
+    setMessages(data.messages);
+  } catch (err) {
+    console.error(err);
+  }
+};
+useEffect(() => {
+  fetchMessages();
+}, [token]);
+
 
   const sendReply = async (id) => {
       console.log(replyText[id]);
