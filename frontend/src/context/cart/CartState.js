@@ -25,7 +25,7 @@ export const CartProvider = ({ children }) => {
   const fetchCart = async () => {
     try {
       const res = await fetch(
-        "https://clothing-store-backcheck.onrender.com/api/cart/fetchcart",
+        "https://clothing-store-backc.onrender.com/api/cart/fetchcart",
         {
           headers: { "auth-token": token },
         }
@@ -52,7 +52,7 @@ export const CartProvider = ({ children }) => {
 
     try {
       const res = await fetch(
-        "https://clothing-store-backcheck.onrender.com/api/cart/addcart",
+        "https://clothing-store-backc.onrender.com/api/cart/addcart",
         {
           method: "POST",
           headers: {
@@ -81,7 +81,7 @@ export const CartProvider = ({ children }) => {
 
     try {
       const res = await fetch(
-        "https://clothing-store-backcheck.onrender.com/api/cart/removecart",
+        "https://clothing-store-backc.onrender.com/api/cart/removecart",
         {
           method: "DELETE",
           headers: {
