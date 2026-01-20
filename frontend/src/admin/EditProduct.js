@@ -10,7 +10,7 @@ export default function EditProduct() {
 
   try {
     const response = await fetch(
-      `http://localhost:5000/api/product/update/${product._id}`,
+      `https://clothing-store-backc.onrender.com/api/product/update/${product._id}`,
       {
         method: "PUT",
         headers: {
