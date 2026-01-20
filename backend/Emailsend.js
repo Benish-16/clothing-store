@@ -1,5 +1,5 @@
 require("dotenv").config();
-const MailerSend = require("mailersend");
+const { MailerSend, EmailParams } = require("mailersend");
 
 const mailer = new MailerSend({
   apiKey: process.env.MAILERSEND_API_KEY,
@@ -7,16 +7,19 @@ const mailer = new MailerSend({
 
 const sendEmail = async (to, subject, textMessage, htmlContent = null) => {
   try {
-    const response = await mailer.email.send({
-      from: process.env.MAILERSEND_FROM,
-      to: [to],
-      subject,
-      text: textMessage,
-      html: htmlContent || undefined,
-    });
+    const emailParams = new EmailParams()
+      .setFrom(process.env.MAILERSEND_FROM)
+      .setTo(to)
+      .setSubject(subject)
+      .setText(textMessage);
+
+    if (htmlContent) {
+      emailParams.setHtml(htmlContent);
+    }
+
+    await mailer.email.send(emailParams);
 
     console.log("Email sent successfully to", to);
-    return response;
   } catch (err) {
     console.error("MailerSend Error:", err);
     throw err;
