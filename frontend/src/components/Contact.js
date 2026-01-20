@@ -1,6 +1,7 @@
-import React,{useState} from 'react'
-
+import React,{useState,useContext} from 'react'
+import alertContext from "../context/alert/alertContext";
 export default function Contact() {
+    const { showAlert } = useContext(alertContext);
     const [form, setForm] = useState({
     fullname: "",
     email: "",
@@ -25,10 +26,10 @@ export default function Contact() {
     const data = await res.json();
 
     if (data.success) {
-      alert("Message sent successfully");
+      showAlert("Message sent successfully",'success');
       setForm({ fullname: "", email: "", phone: "", message: "" });
     } else {
-      alert("Failed to send message");
+      showAlert("Failed to send message",'danger');
     }
   };
   return (
