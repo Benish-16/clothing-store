@@ -1,43 +1,33 @@
 require("dotenv").config();
-const nodemailer = require("nodemailer");
+const { MailerSend, EmailParams } = require("mailersend");
+
+// Initialize MailerSend with API key
+const mailer = new MailerSend({ apiKey: process.env.MAILERSEND_API_KEY });
 
 const sendEmail = async (email, subject, textMessage, htmlContent = null) => {
   if (!email) {
     throw new Error("Recipient email is missing");
   }
 
-  // Create transporter with explicit host/port for Gmail
-  const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,       // 587 for STARTTLS, 465 for SSL
-    secure: false,   // STARTTLS uses false
-    auth: {
-      user: process.env.MY_EMAIL,
-      pass: process.env.EMAIL_PASSWORD, // must be App Password if 2FA enabled
-    },
-    tls: {
-      rejectUnauthorized: false, // allows cloud servers to connect
-    },
-  });
+  // Prepare email parameters
+  const emailParams = new EmailParams()
+    .setFrom(process.env.MAILERSEND_FROM) // verified sender, e.g., no-reply@yourdomain.com
+    .setTo(email)                         // recipient
+    .setSubject(subject)
+    .setText(textMessage);                // plain text
 
-  // Prepare email
-  const mailOptions = {
-    from: `"MINIMAL" <${process.env.MY_EMAIL}>`, // sender
-    to: email,                                  // recipient
-    subject,
-    text: textMessage,
-    html: htmlContent || undefined,             // optional HTML
-  };
+  if (htmlContent) {
+    emailParams.setHtml(htmlContent);     // optional HTML
+  }
 
   try {
-    const info = await transporter.sendMail(mailOptions);
-    console.log("Email sent successfully!", info.response);
-    return info;
+    const response = await mailer.send(emailParams);
+    console.log("Email sent successfully!", response);
+    return response;
   } catch (err) {
-    console.error("Email sending failed:", err);
+    console.error("MailerSend Error:", err);
     throw err;
   }
 };
 
 module.exports = sendEmail;
-
