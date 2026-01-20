@@ -34,7 +34,7 @@ export default function ResetPassword({email, otpf}) {
 }),
   });
 
-  const data = await res.json();
+  const _data = await res.json();
 
   if (res.ok) {
     showAlert("Password reset successful", "success");
