@@ -12,7 +12,7 @@ export default function Product({ category }) {
     const fetchTypes = async () => {
       try {
         const res = await fetch(
-          `https://clothing-store-new.onrender.com/api/type/category/${category}`
+          `https://clothing-store-new.onrender.com//api/type/category/${category}`
         );
         const data = await res.json();
         setTypes(data);
@@ -28,7 +28,7 @@ export default function Product({ category }) {
   
 
     try {
-      await fetch(`http://localhost:5000/api/type/delete/${id}`, {
+      await fetch(`https://clothing-store-new.onrender.com/api/type/delete/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
