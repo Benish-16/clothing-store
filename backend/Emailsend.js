@@ -1,19 +1,38 @@
 require("dotenv").config();
 const axios = require("axios");
 
-const sendEmail = async (to, subject, text) => {
+/**
+ * Send email using MailerSend API
+ * @param {string} to - recipient email
+ * @param {string} subject - email subject
+ * @param {string} text - plain text message
+ * @param {string|null} htmlContent - optional HTML content
+ */
+const sendEmail = async (to, subject, text, htmlContent = null) => {
+  if (!to) {
+    throw new Error("Recipient email is missing");
+  }
+
+  // Base payload
+  const payload = {
+    from: {
+      email: process.env.MAILERSEND_FROM, // MUST be verified domain email
+      name: "MINIMAL",
+    },
+    to: [{ email: to }],
+    subject,
+    text,
+  };
+
+  // Add HTML only if provided
+  if (htmlContent) {
+    payload.html = htmlContent;
+  }
+
   try {
-    await axios.post(
+    const res = await axios.post(
       "https://api.mailersend.com/v1/email",
-      {
-        from: {
-          email: process.env.MAILERSEND_FROM, // verified sender
-          name: "MINIMAL",
-        },
-        to: [{ email: to }],
-        subject,
-        text,
-      },
+      payload,
       {
         headers: {
           Authorization: `Bearer ${process.env.MAILERSEND_API_KEY}`,
@@ -22,7 +41,8 @@ const sendEmail = async (to, subject, text) => {
       }
     );
 
-    console.log("✅ Email sent");
+    console.log("✅ Email sent successfully");
+    return res.data;
   } catch (err) {
     console.error(
       "❌ MailerSend error:",
