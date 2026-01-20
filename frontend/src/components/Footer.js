@@ -11,7 +11,7 @@ export default function Footer() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/subscribe/sent", {
+      const res = await fetch("https://clothing-store-backc.onrender.comapi/subscribe/sent", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
