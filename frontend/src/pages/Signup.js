@@ -19,7 +19,7 @@ if (password !== cpassword) {
 }
 
 
-    const response = await fetch("http://localhost:5000/api/auth/createuser", {
+    const response = await fetch("https://clothing-store-new.onrender.com/api/auth/createuser", {
        
       method: 'POST',
       headers: {
