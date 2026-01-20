@@ -31,7 +31,3 @@ app.use('/api/type',require('./routes/type'))
 app.use("/api/contact", require("./routes/contact"));
 app.use("/api/subscribe", require("./routes/subscription"));
 
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-});
