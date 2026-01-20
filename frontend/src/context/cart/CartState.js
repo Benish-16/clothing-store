@@ -14,7 +14,7 @@ export const CartProvider = ({ children }) => {
 
   const fetchCart = async () => {
     try {
-      const res = await fetch("https://clothing-store-frontcheck.onrender.com/api/cart/fetchcart", {
+      const res = await fetch("https://clothing-store-backcheck.onrender.com/api/cart/fetchcart", {
         headers: { "auth-token": localStorage.getItem("token") },
       });
       const data = await res.json();
@@ -28,7 +28,7 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = async (item, qty ) => {
     try {
-      const res = await fetch("https://clothing-store-frontcheck.onrender.com/api/cart/addcart", {
+      const res = await fetch("https://clothing-store-backcheck.onrender.com/api/cart/addcart", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -48,7 +48,7 @@ export const CartProvider = ({ children }) => {
  const removeFromCart = async (item ) => {
     console.log( item.product._id,item.variant.color, item.size);
     try {
-      const res = await fetch("https://clothing-store-frontcheck.onrender.com/api/cart/removecart", {
+      const res = await fetch("https://clothing-store-backcheck.onrender.com/api/cart/removecart", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
