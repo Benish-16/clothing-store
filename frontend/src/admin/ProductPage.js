@@ -37,7 +37,7 @@ const handleSubmit = async (e) => {
   };
   console.log(JSON.stringify(productData));
   try {
-    const res = await fetch("http://localhost:5000/api/product/addproduct", {
+    const res = await fetch("https://clothing-store-backc.onrender.com/api/product/addproduct", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(productData),
