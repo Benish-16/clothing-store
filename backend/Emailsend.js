@@ -1,28 +1,26 @@
 require("dotenv").config();
-const nodemailer = require("nodemailer");
+const sgMail = require("@sendgrid/mail");
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const sendEmail = async (email, subject, textMessage, htmlContent = null) => {
-  if (!email) {
-    throw new Error("Recipient email is missing");
-  }
+  if (!email) throw new Error("Recipient email is missing");
 
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.MY_EMAIL,
-      pass: process.env.EMAIL_PASSWORD,
-    },
-  });
-
-  const mailOptions = {
-    from: `"MINIMAL" <${process.env.MY_EMAIL}>`,
-    to: email,               
+  const msg = {
+    to: email,
+    from: process.env.SENDGRID_FROM,
     subject,
-    text: textMessage,      
+    text: textMessage,
     html: htmlContent || undefined,
   };
 
-  return transporter.sendMail(mailOptions);
+  try {
+    await sgMail.send(msg);
+    console.log("Email sent successfully to", email);
+  } catch (err) {
+    console.error("SendGrid Error:", err);
+    throw err;
+  }
 };
 
 module.exports = sendEmail;
