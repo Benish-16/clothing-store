@@ -9,7 +9,7 @@ const app=express();
 const port=5000
 app.use(express.json());
 app.use(cors({
-  origin: 'http://localhost:3000' 
+  origin: "https://clothing-store-n2.onrender.com",
 }));
 app.get('/', (req, res) => {
   res.send('Hello World!')
