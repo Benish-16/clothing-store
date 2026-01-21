@@ -1,27 +1,24 @@
-import { Link, useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import authContext from "../context/auth/authContext";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../App.css";
 
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = React.useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const { user } = useContext(authContext);
   const navigate = useNavigate();
   const location = useLocation();
 
-  React.useEffect(() => {
-    
+  useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 992) {
-        setMenuOpen(false);
-      }
+      if (window.innerWidth >= 992) setMenuOpen(false);
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const capitalize = (str) => (str ? str.charAt(0).toUpperCase() + str.slice(1) : "");
+  const capitalize = (str) =>
+    str ? str.charAt(0).toUpperCase() + str.slice(1) : "";
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -29,77 +26,122 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
-      <div className="container-fluid px-4 px-lg-5">
-    
-        <Link
-          to="/"
-          className="navbar-brand fw-light mx-auto mx-lg-0"
-          style={{ letterSpacing: "4px", fontWeight: 300 }}
-        >
-          {user?.admin ? `${capitalize(user?.name)} Dashboard` : "MINIMAL"}
-        </Link>
+    <nav className="navbar bg-white fixed-top py-3 shadow-sm" style={{ zIndex: 1050 }}>
+      <div className="container-fluid px-4 px-lg-5 d-flex align-items-center justify-content-between">
 
+  
+        {!user?.admin && (
+          <ul className="navbar-nav flex-row gap-4 d-none d-lg-flex">
+            <li className="nav-item"><Link to="/women" className="nav-link">WOMEN</Link></li>
+            <li className="nav-item"><Link to="/men" className="nav-link">MEN</Link></li>
+            <li className="nav-item"><Link to="/about" className="nav-link">ABOUT</Link></li>
+            <li className="nav-item"><Link to="/contact" className="nav-link">CONTACT</Link></li>
+          </ul>
+        )}
+
+        {/* BRAND */}
+        <div className="flex-grow-1 text-center">
+          <Link
+            to="/"
+            className="navbar-brand fw-light"
+            style={{ letterSpacing: "4px" }}
+          >
+            {user?.admin ? `${capitalize(user?.name)} Dashboard` : "MINIMAL"}
+          </Link>
+        </div>
+
+        {/* RIGHT MENU (DESKTOP ONLY) */}
+        <ul className="navbar-nav flex-row gap-3 d-none d-lg-flex align-items-center">
+          {!localStorage.getItem("token") ? (
+            <>
+              <li>
+                <Link to="/login" className="btn btn-outline-dark btn-sm">
+                  Login
+                </Link>
+              </li>
+              <li>
+                <Link to="/signup" className="btn btn-dark btn-sm">
+                  Signup
+                </Link>
+              </li>
+            </>
+          ) : (
+            <li>
+              <button className="btn btn-outline-danger btn-sm" onClick={handleLogout}>
+                Logout
+              </button>
+            </li>
+          )}
+
+          {!user?.admin && (
+            <li className="nav-item">
+              <Link to="/cart" className="nav-link">
+                <i className="bi bi-bag fs-5"></i>
+              </Link>
+            </li>
+          )}
+        </ul>
+
+   
         {!user?.admin && (
           <button
-            className="navbar-toggler border-0"
-            type="button"
+            className="navbar-toggler border-0 d-lg-none"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             <span className="navbar-toggler-icon"></span>
           </button>
         )}
 
-        {/* Menu */}
+      
         <div className={`collapse navbar-collapse ${menuOpen ? "show" : ""}`}>
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0 text-center gap-3">
-            {!user?.admin && (
-              <>
-                <li className="nav-item">
-                  <Link to="/women" className="nav-link" onClick={() => setMenuOpen(false)}>WOMEN</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/men" className="nav-link" onClick={() => setMenuOpen(false)}>MEN</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/about" className="nav-link" onClick={() => setMenuOpen(false)}>ABOUT</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/contact" className="nav-link" onClick={() => setMenuOpen(false)}>CONTACT</Link>
-                </li>
-              </>
-            )}
-          </ul>
+          <ul className="navbar-nav text-center py-4 gap-3">
 
-          <ul className="navbar-nav ms-auto mb-2 mb-lg-0 flex-row align-items-center gap-2">
+            <li><Link to="/women" className="nav-link" onClick={() => setMenuOpen(false)}>WOMEN</Link></li>
+            <li><Link to="/men" className="nav-link" onClick={() => setMenuOpen(false)}>MEN</Link></li>
+            <li><Link to="/about" className="nav-link" onClick={() => setMenuOpen(false)}>ABOUT</Link></li>
+            <li><Link to="/contact" className="nav-link" onClick={() => setMenuOpen(false)}>CONTACT</Link></li>
+
             {!localStorage.getItem("token") ? (
               <>
-                <li>
-                  <Link to="/login" className="btn btn-outline-primary btn-sm">
+                <li className="nav-item">
+                  <Link
+                    to="/login"
+                    className="btn btn-outline-dark w-75 mx-auto"
+                    onClick={() => setMenuOpen(false)}
+                  >
                     Login
                   </Link>
                 </li>
-                <li>
-                  <Link to="/signup" className="btn btn-primary btn-sm">
+                <li className="nav-item">
+                  <Link
+                    to="/signup"
+                    className="btn btn-dark w-75 mx-auto"
+                    onClick={() => setMenuOpen(false)}
+                  >
                     Signup
                   </Link>
                 </li>
               </>
             ) : (
-              <li>
-                <button className="btn btn-outline-danger btn-sm" onClick={handleLogout}>
+              <li className="nav-item">
+                <button
+                  className="btn btn-outline-danger w-75 mx-auto"
+                  onClick={() => {
+                    handleLogout();
+                    setMenuOpen(false);
+                  }}
+                >
                   Logout
                 </button>
               </li>
             )}
 
-            {!user?.admin && (
-              <li className="nav-item">
-                <Link to="/cart" className="nav-link position-relative">
-                  <i className="bi bi-bag fs-5"></i>
-                </Link>
-              </li>
-            )}
+            <li>
+              <Link to="/cart" className="nav-link" onClick={() => setMenuOpen(false)}>
+                <i className="bi bi-bag"></i>
+              </Link>
+            </li>
+
           </ul>
         </div>
       </div>
