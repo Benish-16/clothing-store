@@ -68,8 +68,8 @@ export default function Customerview() {
     return matchesSearch && matchesStatus;
   });
 
-  return (
-    <div className="container mt-5">
+ return (
+    <main className="main mt-5">
       <h2 className="mb-4 text-center">Admin Orders Dashboard</h2>
 
       <div className="row mb-3">
@@ -163,6 +163,6 @@ export default function Customerview() {
           </table>
         </div>
       )}
-    </div>
+    </main>
   );
 }
