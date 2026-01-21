@@ -97,7 +97,7 @@ export default function Contact() {
               </div>
               <div className="col-12">
                 <div className="d-grid">
-                  <button className="btn btn-primary btn-lg" type="submit">Submit</button>
+                  <button className="btn btn-dark btn-lg" type="submit">Submit</button>
                 </div>
               </div>
             </div>
