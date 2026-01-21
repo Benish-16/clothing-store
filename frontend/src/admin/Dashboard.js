@@ -60,10 +60,14 @@ export default function Dashboard() {
   const delivered = orders.filter(o => o.orderStatus === "Delivered");
   const pending = orders.filter(o => o.orderStatus === "Pending").length;
 
-  const revenue = delivered.reduce((s, o) => s + Number(o.total || 0), 0);
-  const todaySales = orders
-    .filter(o => dayjs(o.createdAt).startOf("day").isSame(today))
-    .reduce((s, o) => s + Number(o.total || 0), 0);
+ const revenue = delivered.reduce((s, o) => s + Number(o.total || 0), 0);
+const todaySales = orders
+  .filter(o => dayjs(o.createdAt).startOf("day").isSame(today))
+  .reduce((s, o) => s + Number(o.total || 0), 0);
+
+const formattedRevenue = revenue.toLocaleString();
+const formattedTodaySales = todaySales.toLocaleString();
+
 
 
   const labels = Array.from({ length: 7 }, (_, i) =>
