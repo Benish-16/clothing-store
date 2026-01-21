@@ -54,7 +54,7 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/order/all")
+    fetch("https://clothing-store-backc-p6nl.onrender.com/api/order/all")
       .then(res => res.json())
       .then(data => {
         if (data.success) setOrders(data.orders);
