@@ -93,6 +93,7 @@ return (
             onChange={(e) => setDescription(e.target.value)}
             required
             rows={2}
+                    minLength={10}
           />
         </div>
 
