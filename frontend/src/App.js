@@ -40,7 +40,7 @@ function AppContent() {
   return (
     <>
       <Navbar />
-      <Alert/>
+      <Alert/>    {user?.admin && <Sidebar />}
       <div className="main-content">
         <Routes>
         <Route path="/signup" element={<Signup />} />
