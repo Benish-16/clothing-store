@@ -61,7 +61,7 @@ console.log(type,category);
       ))}
     </div>
      {user?.admin === true && (
-      <div className="d-flex justify-content-end mb-4">
+      <div className="d-flex justify-content-end mb-4 mt-2">
         <button
           className="btn btn-dark d-flex align-items-center gap-2"
           onClick={() => navigate("/addproduct", { state: { category ,type} })}
