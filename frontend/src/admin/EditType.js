@@ -20,7 +20,7 @@ const { name, image } = location.state || {};
   useEffect(() => {
     const fetchType = async () => {
       try {
-        const res = await fetch(`https://clothing-store-backc.onrender.com/api/type/${id}`);
+        const res = await fetch(`https://clothing-store-backc-p6nl.onrender.com/api/type/${id}`);
         const data = await res.json();
         setFormData({
           name: data.name,
@@ -48,7 +48,7 @@ const { name, image } = location.state || {};
     e.preventDefault();
 
     try {
-      await fetch(`https://clothing-store-backc.onrender.com/api/type/edit/${id}`, {
+      await fetch(`https://clothing-store-backc-p6nl.onrender.com/api/type/edit/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
