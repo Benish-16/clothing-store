@@ -16,7 +16,7 @@ const { user } = useContext(authContext);
     const fetchProducts = async () => {
       try {
         const res = await fetch(
-        `https://clothing-store-backc.onrender.com/api/product/fetchproduct?category=${category}&type=${type}`
+        `https://clothing-store-backc-p6nl.onrender.com/api/product/fetchproduct?category=${category}&type=${type}`
         );
         const data = await res.json();
         if (data.success) {
