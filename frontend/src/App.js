@@ -34,6 +34,7 @@ import Footer from './components/Footer';
 import Home from './components/Home';
 import authContext from "./context/auth/authContext";
 import EditType from './admin/EditType';
+import Sidebar from './admin/Sidebar';
 function AppContent() {
   const { user } = useContext(authContext);
 
