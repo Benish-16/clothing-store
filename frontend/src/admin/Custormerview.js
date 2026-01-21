@@ -70,7 +70,7 @@ export default function Customerview() {
 
  return (
     <main className="main ">
-      <h2 className="mb-4 text-center">Admin Orders Dashboard</h2>
+      <h2 className="text-center">Admin Orders Dashboard</h2>
 
       <div className="row mb-3">
         <div className="col-md-6 mb-2">
