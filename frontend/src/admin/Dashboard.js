@@ -83,7 +83,7 @@ export default function Dashboard() {
     
       
   
-      <main className="main mt-5">
+      <main className="main ">
         <h2 className="page-title">Dashboard</h2>
 
       
