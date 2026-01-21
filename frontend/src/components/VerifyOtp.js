@@ -23,7 +23,7 @@ export default function VerifyOtp({ email, setStep, setOtpf }) {
     const finalOtp = otp.join("");
 
     try {
-      const res = await fetch("https://clothing-store-backc.onrender.com/api/auth/verify-otp", {
+      const res = await fetch("https://clothing-store-backc-p6nl.onrender.com/api/auth/verify-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, otp: finalOtp }),
