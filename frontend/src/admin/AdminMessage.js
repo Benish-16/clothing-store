@@ -7,7 +7,7 @@ export default function AdminMessage() {
   const fetchMessages = async () => {
   try {
     const res = await fetch(
-      "https://clothing-store-backc.onrender.com/api/contact/admin/messages",
+      "https://clothing-store-backc-p6nl.onrender.com/api/contact/admin/messages",
       {
         method: "GET",
         headers: {
@@ -32,7 +32,7 @@ useEffect(() => {
 
   const sendReply = async (id) => {
       console.log(replyText[id]);
-    await fetch(`https://clothing-store-backc.onrender.com/api/contact/admin/messages/reply/${id}`, {
+    await fetch(`https://clothing-store-backc-p6nl.onrender.com/api/contact/admin/messages/reply/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
