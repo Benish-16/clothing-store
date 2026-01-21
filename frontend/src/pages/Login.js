@@ -12,7 +12,7 @@ export default function Login() {
       });
       const handleSubmit=async(e)=>{
     e.preventDefault();
-    const response=await fetch("https://clothing-store-backc.onrender.com/api/auth/login",{
+    const response=await fetch("https://clothing-store-backc-p6nl.onrender.com/api/auth/login",{
 method:'POST',
 headers:{
      'Content-Type': 'application/json',
