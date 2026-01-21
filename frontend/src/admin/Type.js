@@ -32,7 +32,7 @@ export default function AddType() {
     };
 
     try {
-      const res = await fetch("https://clothing-store-backc.onrender.com/api/type/add", {
+      const res = await fetch("https://clothing-store-backc-p6nl.onrender.com/api/type/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
