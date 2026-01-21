@@ -13,6 +13,7 @@ export default function ProductItem({ product,onDelete }) {
     const { cartItems, addToCart } = useCart();
   const [selectedVariant, setSelectedVariant] = useState(null);
   const [selectedSize, setSelectedSize] = useState("");
+      const [showMore, setShowMore] = useState(false);
 
   if (!product) return null;
 
@@ -119,7 +120,29 @@ const deleteProduct = async (productId) => {
 
         <div className="card-body text-center">
           <h5 className="card-title">{name}</h5>
-          <p className="card-title">{description}</p>
+         {description && (
+  <>
+    <p
+      className={`text-muted small mb-1 ${
+        showMore ? "desc-expanded" : "desc-collapsed"
+      }`}
+    >
+      {description}
+    </p>
+
+    {description.length > 80 && (
+      <span
+        className="text-danger small"
+        style={{ cursor: "pointer" }}
+        onClick={() => setShowMore(!showMore)}
+      >
+        {showMore ? "Show less" : "More info"}
+      </span>
+    )}
+  </>
+)}
+
+
           <p className="fw-bold">₹{price}</p>
 
       
@@ -175,7 +198,7 @@ onClick={() => navigate("/editproduct", { state: product})}
 </button>
 
 <button
-  className="btn btn-outline-danger w-50 d-flex align-items-center justify-content-center gap-2"
+  className="btn btn-outline-dark w-50 d-flex align-items-center justify-content-center gap-2"
   onClick={() => deleteProduct(product._id)}
 >
   <i className="bi bi-trash"></i>
