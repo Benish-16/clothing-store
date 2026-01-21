@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
-import "./Dashboard.css";
+import "../Dashboard.css";
 
 import {
   Chart as ChartJS,
