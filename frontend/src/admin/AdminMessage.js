@@ -50,6 +50,7 @@ useEffect(() => {
   };
 
   return (
+         <main className="main mt-5">
     <div className="container py-5">
       <h2 className="mb-4">Contact Messages</h2>
 
@@ -100,5 +101,6 @@ useEffect(() => {
         </div>
       ))}
     </div>
+    </main>
   );
 }
