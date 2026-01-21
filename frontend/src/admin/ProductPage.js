@@ -64,9 +64,9 @@ const handleSubmit = async (e) => {
     console.error(err);
   }
 };
-
-  return (
-    <div className="d-flex justify-content-center my-3 px-2">
+return (
+         <main className="main mt-5">
+    <div className="d-flex justify-content-center my-3 ">
       <form
         onSubmit={handleSubmit}
         className="p-3 border rounded shadow-sm w-100"
@@ -169,5 +169,6 @@ const handleSubmit = async (e) => {
         </button>
       </form>
     </div>
+    </main>
   );
 }
