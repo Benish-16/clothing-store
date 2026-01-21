@@ -17,7 +17,7 @@ export default function Customerview() {
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const res = await fetch("https://clothing-store-backc.onrender.com/api/order/all");
+      const res = await fetch("https://clothing-store-backc-p6nl.onrender.com/api/order/all");
       const data = await res.json();
       if (data.success) setOrders(data.orders);
       else setOrders([]);
@@ -43,7 +43,7 @@ export default function Customerview() {
 
    
     try {
-      await fetch(`https://clothing-store-backc.onrender.com/api/order/updatestatus/${orderId}`, {
+      await fetch(`https://clothing-store-backc-p6nl.onrender.com/api/order/updatestatus/${orderId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
