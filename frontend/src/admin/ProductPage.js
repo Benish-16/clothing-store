@@ -48,7 +48,13 @@ const handleSubmit = async (e) => {
 
     if (res.ok) {
       showAlert("Product added", "success");
-      navigate(`/product/${category}/${type}`, { replace: true });
+    setName("");
+  setPrice("");
+  setColor("");
+  setImgurl("");
+  setSize("");
+  setQuantity("");
+  setDescription("");
    
     } else {
       showAlert(data?.message || "Something went wrong", "danger");
