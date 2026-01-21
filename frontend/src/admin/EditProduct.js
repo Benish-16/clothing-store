@@ -68,8 +68,8 @@ const deleteSize = (index, sindex) => {
   setVariants(updated);
 };
 
-
  return (
+       <main className="main mt-5">
   <div className="container my-4">
     <h3>Edit Product</h3>
 
@@ -192,6 +192,7 @@ const deleteSize = (index, sindex) => {
       </button>
     </div>
   </div>
+  </main>
 );
 }
 
