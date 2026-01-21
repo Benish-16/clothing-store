@@ -16,7 +16,7 @@ app.use(express.json());
 
 
 const corsOptions = {
-  origin: "https://clothing-store-frontcheck.onrender.com",
+  origin: "https://clothing-store-frontchh.onrender.com",
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "auth-token"],
   credentials: true,
