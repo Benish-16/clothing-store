@@ -40,7 +40,7 @@ function AppContent() {
 
   return (
     <>
-      <Navbar />
+     {!user?.admin && <Navbar /> }
       <Alert/>    {user?.admin && <Sidebar />}
       <div className="main-content">
         <Routes>
