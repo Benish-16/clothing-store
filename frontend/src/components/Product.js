@@ -40,8 +40,10 @@ export default function Product({ category }) {
     }
   };
 
+const Wrapper = user?.admin? "main" : "div";
   return (
-<div className="container mt-5 pt-4">
+     
+  <Wrapper className={user?.admin? "main" : "container mt-5 "}>
 
 
       <header className="text-center mb-5">
@@ -114,6 +116,7 @@ export default function Product({ category }) {
           </button>
         </div>
       )}
-    </div>
+    </Wrapper>
+    
   );
 }
