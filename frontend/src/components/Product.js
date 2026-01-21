@@ -55,7 +55,7 @@ const Wrapper = user?.admin? "main" : "div";
 
       <div className="row g-3 mb-5">
         {types.map((type) => (
-          <div key={type._id} className="col-6 col-md-4 col-lg-4">
+          <div key={type._id} className="col-12 col-md-4 col-lg-4">
             <div className="card h-100 shadow-sm border-0">
               
               <img
