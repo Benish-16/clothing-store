@@ -48,7 +48,7 @@ const handleSubmit = async (e) => {
 
     if (res.ok) {
       showAlert("Product added", "success");
-      navigate(`/products/${category}/${type}`, { replace: true });
+      navigate(`/product/${category}/${type}`, { replace: true });
    
     } else {
       showAlert(data?.message || "Something went wrong", "danger");
