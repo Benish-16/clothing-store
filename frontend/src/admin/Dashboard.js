@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import "../App.css";
 import {
@@ -47,7 +47,16 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+
   const closeSidebar = () => setSidebarOpen(false);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    closeSidebar();
+    navigate("/login");
+  };
 
   const fetchOrders = async () => {
     try {
@@ -68,7 +77,6 @@ export default function Dashboard() {
   }, []);
 
   const today = dayjs().startOf("day");
-
   const deliveredOrders = orders.filter(o => o.orderStatus === "Delivered");
   const pendingOrders = orders.filter(o => o.orderStatus === "Pending").length;
 
@@ -134,17 +142,22 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard-wrapper">
+
   
       {sidebarOpen && (
         <div className="sidebar-backdrop d-md-none" onClick={closeSidebar} />
       )}
 
-   
-      <nav className={`sidebar bg-light ${sidebarOpen ? "open" : ""}`}>
+
+      <nav className={`sidebar bg-light text-dark ${sidebarOpen ? "open" : ""}`}>
+    
         <div className="d-flex justify-content-between align-items-center mb-3 d-md-none">
           <h5 className="mb-0 text-dark">Menu</h5>
-          <button className="btn btn-outline-dark btn-sm" onClick={closeSidebar}>
-            &times;
+          <button
+            className="btn btn-outline-dark btn-sm"
+            onClick={closeSidebar}
+          >
+            ✕
           </button>
         </div>
 
@@ -154,46 +167,59 @@ export default function Dashboard() {
               Dashboard
             </Link>
           </li>
-
           <li className="nav-item">
             <Link to="/men" onClick={closeSidebar} className="nav-link text-dark">
               Men Products
             </Link>
           </li>
-
           <li className="nav-item">
-            <Link
-              to="/women"
-              onClick={closeSidebar}
-              className="nav-link text-dark"
-            >
+            <Link to="/women" onClick={closeSidebar} className="nav-link text-dark">
               Women Products
             </Link>
           </li>
-
           <li className="nav-item">
-            <Link
-              to="/Customerview"
-              onClick={closeSidebar}
-              className="nav-link text-dark"
-            >
+            <Link to="/Customerview" onClick={closeSidebar} className="nav-link text-dark">
               Customers
             </Link>
           </li>
-
           <li className="nav-item">
-            <Link
-              to="/Contactview"
-              onClick={closeSidebar}
-              className="nav-link text-dark"
-            >
+            <Link to="/Contactview" onClick={closeSidebar} className="nav-link text-dark">
               Contact
             </Link>
           </li>
         </ul>
-      </nav>
 
      
+        <div className="d-md-none mt-4">
+          {!token ? (
+            <>
+              <Link
+                to="/login"
+                onClick={closeSidebar}
+                className="btn btn-outline-dark w-100 mb-2"
+              >
+                Login
+              </Link>
+              <Link
+                to="/signup"
+                onClick={closeSidebar}
+                className="btn btn-dark w-100"
+              >
+                Signup
+              </Link>
+            </>
+          ) : (
+            <button
+              className="btn btn-outline-dark w-100"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          )}
+        </div>
+      </nav>
+
+  
       <div className="d-md-none p-2 bg-light border-bottom">
         <button
           className="btn btn-outline-dark"
@@ -203,35 +229,19 @@ export default function Dashboard() {
         </button>
       </div>
 
-     
+ 
       <main className="content">
         <h3 className="mb-4">Dashboard</h3>
 
         <div className="row g-3">
-          <StatCard
-            title="Today's Sales"
-            value={`₹${todaysSales}`}
-            color="#0d6efd"
-            icon={<i className="bi bi-currency-rupee fs-2 text-primary" />}
-          />
-          <StatCard
-            title="Total Orders"
-            value={orders.length}
-            color="#6f42c1"
-            icon={<i className="bi bi-card-checklist fs-2 text-purple" />}
-          />
-          <StatCard
-            title="Pending Orders"
-            value={pendingOrders}
-            color="#ffc107"
-            icon={<i className="bi bi-hourglass fs-2 text-warning" />}
-          />
-          <StatCard
-            title="Revenue"
-            value={`₹${totalRevenue}`}
-            color="#198754"
-            icon={<i className="bi bi-cash-stack fs-2 text-success" />}
-          />
+          <StatCard title="Today's Sales" value={`₹${todaysSales}`} color="#0d6efd"
+            icon={<i className="bi bi-currency-rupee fs-2 text-primary" />} />
+          <StatCard title="Total Orders" value={orders.length} color="#6f42c1"
+            icon={<i className="bi bi-card-checklist fs-2" />} />
+          <StatCard title="Pending Orders" value={pendingOrders} color="#ffc107"
+            icon={<i className="bi bi-hourglass fs-2 text-warning" />} />
+          <StatCard title="Revenue" value={`₹${totalRevenue}`} color="#198754"
+            icon={<i className="bi bi-cash-stack fs-2 text-success" />} />
         </div>
 
         <div className="row mt-4 g-4">
@@ -253,12 +263,8 @@ export default function Dashboard() {
         </div>
       </main>
 
-      {/* CSS */}
       <style>{`
-        .dashboard-wrapper {
-          display: flex;
-        }
-
+        .dashboard-wrapper { display: flex; }
         .sidebar {
           width: 250px;
           height: 100vh;
@@ -266,33 +272,20 @@ export default function Dashboard() {
           left: 0;
           top: 0;
           padding: 1rem;
-          overflow-y: auto;
           transform: translateX(-100%);
           transition: transform 0.3s ease;
           z-index: 1050;
         }
-
-        .sidebar.open {
-          transform: translateX(0);
-        }
-
-        .content {
-          margin-left: 250px;
-          padding: 1.5rem;
-          width: 100%;
-        }
-
+        .sidebar.open { transform: translateX(0); }
+        .content { margin-left: 250px; padding: 1.5rem; width: 100%; }
         .sidebar-backdrop {
           position: fixed;
           inset: 0;
           background: rgba(0,0,0,0.4);
           z-index: 1040;
         }
-
         @media (max-width: 767px) {
-          .content {
-            margin-left: 0;
-          }
+          .content { margin-left: 0; }
         }
       `}</style>
     </div>
