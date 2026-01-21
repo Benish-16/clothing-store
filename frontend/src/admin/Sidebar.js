@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../Sidebar.css";
-
+import authContext from "../context/auth/authContext";
 export default function Sidebar() {
+   const capitalize = (str) => str ? str.charAt(0).toUpperCase() + str.slice(1) : "";
+        const { user } = useContext(authContext);
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -24,7 +26,7 @@ export default function Sidebar() {
         >
           ☰
         </button>
-        <span className="navbar-title">Admin Dashboard</span>
+         <span className="navbar-title">{`${capitalize(user?.name)} `} Dashboard</span>
       </nav>
 
 
