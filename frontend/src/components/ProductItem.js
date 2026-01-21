@@ -67,7 +67,7 @@ const deleteProduct = async (productId) => {
   const token = localStorage.getItem("token");
 
   const response = await fetch(
-    "https://clothing-store-backc.onrender.com/api/product/delete",
+    "https://clothing-store-backc-p6nl.onrender.com/api/product/delete",
     {
       method: "DELETE",
       headers: {
