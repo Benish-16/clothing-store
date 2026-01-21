@@ -51,7 +51,7 @@ useEffect(() => {
 
   return (
          <main className="main">
-    <div className="container py-5">
+    <div className="container">
       <h2 className="mb-4">Contact Messages</h2>
 
       {messages.map((msg) => (
