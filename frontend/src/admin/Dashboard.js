@@ -264,29 +264,29 @@ export default function Dashboard() {
       </main>
 
       <style>{`
-        .dashboard-wrapper { display: flex; }
-        .sidebar {
-          width: 250px;
-          height: 100vh;
-          position: fixed;
-          left: 0;
-          top: 0;
-          padding: 1rem;
-          transform: translateX(-100%);
-          transition: transform 0.3s ease;
-          z-index: 1050;
-        }
-        .sidebar.open { transform: translateX(0); }
-        .content { margin-left: 250px; padding: 1.5rem; width: 100%; }
-        .sidebar-backdrop {
-          position: fixed;
-          inset: 0;
-          background: rgba(0,0,0,0.4);
-          z-index: 1040;
-        }
-        @media (max-width: 767px) {
-          .content { margin-left: 0; }
-        }
+      .sidebar {
+  width: min(80vw, 260px);
+  height: 100dvh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 1rem;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 1050;
+  overflow-y: auto;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+@media (max-width: 767px) {
+  .content {
+    margin-left: 0;
+  }
+}
+
       `}</style>
     </div>
   );
