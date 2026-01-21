@@ -44,14 +44,7 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const isLoggedIn = Boolean(localStorage.getItem("token"));
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
 
   useEffect(() => {
     fetch("https://clothing-store-backc-p6nl.onrender.com/api/order/all")
@@ -88,50 +81,7 @@ export default function Dashboard() {
   return (
     <>
     
-      <nav className="mobile-navbar d-md-none">
-        <button
-          className="hamburger-btn"
-          onClick={() => setSidebarOpen(true)}
-        >
-          <i className="bi bi-list"></i>
-        </button>
-        <span className="navbar-title">Dashboard</span>
-      </nav>
-
-     
-      <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
-  
-        <div className="sidebar-header d-md-none">
-          <h5>Admin Panel</h5>
-          <button onClick={() => setSidebarOpen(false)}>✕</button>
-        </div>
-
-        <nav className="sidebar-links">
-          <Link to="/" onClick={() => setSidebarOpen(false)}>Dashboard</Link>
-          <Link to="/men" onClick={() => setSidebarOpen(false)}>Men</Link>
-          <Link to="/women" onClick={() => setSidebarOpen(false)}>Women</Link>
-          <Link to="/Customerview" onClick={() => setSidebarOpen(false)}>Customers</Link>
-          <Link to="/Contactview" onClick={() => setSidebarOpen(false)}>Contact</Link>
-        </nav>
-
       
-        {isLoggedIn && (
-          <div className="mobile-logout d-md-none">
-            <button className="logout-btn" onClick={handleLogout}>
-              Logout
-            </button>
-          </div>
-        )}
-      </aside>
-
-     
-      {sidebarOpen && (
-        <div
-          className="overlay"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
-
   
       <main className="main mt-5">
         <h2 className="page-title">Dashboard</h2>
