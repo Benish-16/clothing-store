@@ -94,7 +94,7 @@ const formattedTodaySales = todaySales.toLocaleString();
         <div className="row g-3">
           <StatCard
             title="Today's Sales"
-            value={`₹${todaySales}`}
+            value={`₹${formattedTodaySales}`}
             gradient="linear-gradient(135deg,#667eea,#764ba2)"
             icon={<i className="bi bi-currency-rupee"></i>}
           />
@@ -112,7 +112,7 @@ const formattedTodaySales = todaySales.toLocaleString();
           />
           <StatCard
             title="Revenue"
-            value={`₹${revenue}`}
+            value={`₹${formattedRevenue}`}
             gradient="linear-gradient(135deg,#ff758c,#ff7eb3)"
             icon={<i className="bi bi-cash-stack"></i>}
           />
