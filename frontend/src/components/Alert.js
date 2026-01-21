@@ -16,16 +16,15 @@ export default function Alert() {
    <div
   className={`alert alert-${alert.type} alert-dismissible fade show text-center`}
   role="alert"
-  style={{
-    position: "fixed",
-          
-    left: 0,         
-    width: "100%",   
-    zIndex: 1050,   
-    borderRadius: 0,  
-      marginBottom: "10px",
-       paddingBottom: "10px",
-  }}
+style={{
+  position: "fixed",
+  top: "56px",          
+  left: 0,
+  width: "100%",
+  zIndex: 1050,
+  borderRadius: 0,
+}}
+
 >
        <strong>
   {alert.type === 'danger' ? 'Error' : 'Success'}
