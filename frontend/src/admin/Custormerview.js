@@ -69,7 +69,7 @@ export default function Customerview() {
   });
 
  return (
-    <main className="main mt-5">
+    <main className="main ">
       <h2 className="mb-4 text-center">Admin Orders Dashboard</h2>
 
       <div className="row mb-3">
