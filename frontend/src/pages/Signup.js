@@ -19,7 +19,7 @@ if (password !== cpassword) {
 }
 
 
-    const response = await fetch("https://clothing-store-backcheck.onrender.com/api/auth/createuser", {
+    const response = await fetch("https://clothing-store-backc-p6nl.onrender.com/api/auth/createuser", {
        
       method: 'POST',
       headers: {
