@@ -36,12 +36,15 @@ const { user } = useContext(authContext);
   setProducts(product => product.filter(p => p._id !== id));
 };
 console.log(type,category);
-
+const Wrapper = user?.admin? "main" : "div";
   return (
-  <div className="container py-5 mt-5">
-    <h2 className="mb-4 text-">
+    <Wrapper className={user?.admin? "main" : "container py-5 mt-5 "}>
+
+    
+    <h2 className="mb-4 text px-5" >
       {type}s for {category}
     </h2>
+  
 
   
 
@@ -61,7 +64,7 @@ console.log(type,category);
       ))}
     </div>
      {user?.admin === true && (
-      <div className="d-flex justify-content-end mb-4 mt-2">
+      <div className="d-flex justify-content-end mb-4">
         <button
           className="btn btn-dark d-flex align-items-center gap-2"
           onClick={() => navigate("/addproduct", { state: { category ,type} })}
@@ -71,7 +74,9 @@ console.log(type,category);
         </button>
       </div>
     )}
-  </div>
+  </Wrapper>
+ 
 );
+
 
 }
