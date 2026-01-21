@@ -52,7 +52,7 @@ export default function Dashboard() {
 
   const fetchOrders = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/order/all");
+      const res = await fetch("https://clothing-store-backc-p6nl.onrender.com/api/order/all");
       const data = await res.json();
       if (data.success) {
         setOrders(data.orders);
