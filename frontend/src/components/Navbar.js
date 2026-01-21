@@ -67,7 +67,7 @@ export default function Navbar() {
             </>
           ) : (
             <li>
-              <button className="btn btn-outline-danger btn-sm" onClick={handleLogout}>
+              <button className="btn btn-outline-dark btn-sm" onClick={handleLogout}>
                 Logout
               </button>
             </li>
@@ -125,7 +125,7 @@ export default function Navbar() {
             ) : (
               <li className="nav-item">
                 <button
-                  className="btn btn-outline-danger w-75 mx-auto"
+                  className="btn btn-outline-dark w-75 mx-auto"
                   onClick={() => {
                     handleLogout();
                     setMenuOpen(false);
