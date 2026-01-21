@@ -66,7 +66,9 @@ const { name, image } = location.state || {};
     return <div className="text-center mt-5">Loading...</div>;
   }
 
+ 
   return (
+         <main className="main mt-5">
     <div className="container py-5 mt-5" style={{ maxWidth: "600px" }}>
       <h2 className="mb-4 fw-bold text-center">Edit Type</h2>
 
@@ -106,5 +108,6 @@ const { name, image } = location.state || {};
         </div>
       </form>
     </div>
+         </main>
   );
 }
