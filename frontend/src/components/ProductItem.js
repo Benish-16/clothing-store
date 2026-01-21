@@ -17,7 +17,7 @@ export default function ProductItem({ product,onDelete }) {
   if (!product) return null;
 
   const variants = product.variants || [];
-  const { name, price} = product;
+  const { name, price,description} = product;
 
 const handleColorClick = (variant) => {
  
@@ -119,7 +119,7 @@ const deleteProduct = async (productId) => {
 
         <div className="card-body text-center">
           <h5 className="card-title">{name}</h5>
-
+          <p className="card-title">{description}</p>
           <p className="fw-bold">₹{price}</p>
 
       
