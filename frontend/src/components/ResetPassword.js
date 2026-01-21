@@ -24,7 +24,7 @@ export default function ResetPassword({email, otpf}) {
     return showAlert("Reset session expired. Please try again.", "danger");
   }
 
-  const res = await fetch("https://clothing-store-backc.onrender.com/api/auth/reset-password", {
+  const res = await fetch("https://clothing-store-backc-p6nl.onrender.com/api/auth/reset-password", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
    body: JSON.stringify({
