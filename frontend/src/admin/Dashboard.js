@@ -27,7 +27,7 @@ ChartJS.register(
 
 
 const StatCard = ({ title, value, icon, gradient }) => (
-  <div className="col-xl-3 col-lg-3 col-md-6 col-6">
+  <div className="col-xl-3 col-lg-3 col-md-6 col-12">
     <div className="stat-card" style={{ background: gradient }}>
       <div className="stat-content">
         <div>
