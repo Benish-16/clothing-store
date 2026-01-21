@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import dayjs from "dayjs";
-import '../App.css';
+import "../App.css";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -27,26 +27,27 @@ ChartJS.register(
 const StatCard = ({ title, value, color, icon, subtitle }) => (
   <div className="col-12 col-sm-6 col-md-3">
     <div
-      className="card bg-white shadow-sm mb-3"
+      className="card bg-white shadow-sm"
       style={{ borderLeft: `5px solid ${color}`, minHeight: "120px" }}
     >
-      <div className="card-body d-flex align-items-center justify-content-between">
+      <div className="card-body d-flex justify-content-between align-items-center">
         <div>
-          <h6 className="mb-1 text-dark">{title}</h6>
-          <h4 className="mb-1 text-dark">{value}</h4>
+          <h6 className="text-dark mb-1">{title}</h6>
+          <h4 className="text-dark mb-0">{value}</h4>
           {subtitle && <small className="text-muted">{subtitle}</small>}
         </div>
-        {icon && <div>{icon}</div>}
+        {icon}
       </div>
     </div>
   </div>
 );
 
 export default function Dashboard() {
-  const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [sidebarOpen, setSidebarOpen] = useState(false); 
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const closeSidebar = () => setSidebarOpen(false);
 
   const fetchOrders = async () => {
     try {
@@ -54,9 +55,7 @@ export default function Dashboard() {
         "https://clothing-store-backc-p6nl.onrender.com/api/order/all"
       );
       const data = await res.json();
-      if (data.success) {
-        setOrders(data.orders);
-      }
+      if (data.success) setOrders(data.orders);
     } catch (err) {
       console.error(err);
     } finally {
@@ -66,35 +65,35 @@ export default function Dashboard() {
 
   useEffect(() => {
     fetchOrders();
-    const interval = setInterval(fetchOrders, 60000);
-    return () => clearInterval(interval);
   }, []);
 
   const today = dayjs().startOf("day");
-  const deliveredOrders = orders.filter((o) => o.orderStatus === "Delivered");
+
+  const deliveredOrders = orders.filter(o => o.orderStatus === "Delivered");
+  const pendingOrders = orders.filter(o => o.orderStatus === "Pending").length;
+
   const totalRevenue = deliveredOrders.reduce(
     (sum, o) => sum + Number(o.total || 0),
     0
   );
+
   const todaysSales = orders
     .filter(
-      (o) =>
+      o =>
         o.orderStatus !== "Cancelled" &&
         dayjs(o.createdAt).startOf("day").isSame(today)
     )
     .reduce((sum, o) => sum + Number(o.total || 0), 0);
-  const totalOrders = orders.length;
-  const pendingOrders = orders.filter((o) => o.orderStatus === "Pending")
-    .length;
 
   const ordersByDay = Array(7).fill(0);
   const labels = [];
+
   for (let i = 6; i >= 0; i--) {
     labels.push(dayjs().subtract(i, "day").format("ddd"));
   }
-  orders.forEach((o) => {
-    const orderDate = dayjs(o.createdAt).startOf("day");
-    const diff = today.diff(orderDate, "day");
+
+  orders.forEach(o => {
+    const diff = today.diff(dayjs(o.createdAt).startOf("day"), "day");
     if (diff >= 0 && diff < 7) ordersByDay[6 - diff]++;
   });
 
@@ -106,8 +105,8 @@ export default function Dashboard() {
         data: ordersByDay,
         borderColor: "#0d6efd",
         backgroundColor: "rgba(13,110,253,0.15)",
-        tension: 0.4,
         fill: true,
+        tension: 0.4,
       },
     ],
   };
@@ -119,7 +118,7 @@ export default function Dashboard() {
         data: [
           pendingOrders,
           deliveredOrders.length,
-          orders.filter((o) => o.orderStatus === "Cancelled").length,
+          orders.filter(o => o.orderStatus === "Cancelled").length,
         ],
         backgroundColor: ["#ffc107", "#198754", "#dc3545"],
       },
@@ -129,180 +128,170 @@ export default function Dashboard() {
   if (loading)
     return (
       <div className="text-center mt-5">
-        <div className="spinner-border text-primary" role="status"></div>
-        <p className="mt-2">Loading dashboard...</p>
+        <div className="spinner-border text-primary" />
       </div>
     );
 
   return (
-    <div className="d-flex flex-column flex-md-row min-vh-100">
- 
-      <nav
-        className={`bg-dark text-white p-3 flex-shrink-0 sidebar ${
-          sidebarOpen ? "open" : ""
-        }`}
-      >
+    <div className="dashboard-wrapper">
+  
+      {sidebarOpen && (
+        <div className="sidebar-backdrop d-md-none" onClick={closeSidebar} />
+      )}
+
+   
+      <nav className={`sidebar bg-light ${sidebarOpen ? "open" : ""}`}>
         <div className="d-flex justify-content-between align-items-center mb-3 d-md-none">
-          <h4>Menu</h4>
-          <button
-            className="btn btn-light btn-sm"
-            onClick={() => setSidebarOpen(false)}
-          >
+          <h5 className="mb-0 text-dark">Menu</h5>
+          <button className="btn btn-outline-dark btn-sm" onClick={closeSidebar}>
             &times;
           </button>
         </div>
+
         <ul className="nav flex-column">
-          <li className="nav-item mb-2">
-            <Link to="/" className="nav-link text-white">
-              <i className="bi bi-speedometer2 me-2"></i>Dashboard
+          <li className="nav-item">
+            <Link to="/" onClick={closeSidebar} className="nav-link text-dark">
+              Dashboard
             </Link>
           </li>
-          <li className="nav-item dropdown mb-2">
-            <a
-              className="nav-link dropdown-toggle text-white"
-              href="#"
-              id="productsDropdown"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+
+          <li className="nav-item">
+            <Link to="/men" onClick={closeSidebar} className="nav-link text-dark">
+              Men Products
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link
+              to="/women"
+              onClick={closeSidebar}
+              className="nav-link text-dark"
             >
-              <i className="bi bi-bag-fill me-2"></i>Products
-            </a>
-            <ul className="dropdown-menu" aria-labelledby="productsDropdown">
-              <li>
-                <Link className="dropdown-item" to="/men">
-                  Men
-                </Link>
-              </li>
-              <li>
-                <Link className="dropdown-item" to="/women">
-                  Women
-                </Link>
-              </li>
-            </ul>
-          </li>
-          <li className="nav-item mb-2">
-            <Link to="/Customerview" className="nav-link text-white">
-              <i className="bi bi-people-fill me-2"></i>Customers
+              Women Products
             </Link>
           </li>
-          <li className="nav-item mb-2">
-            <Link to="/Contactview" className="nav-link text-white">
-              <i className="bi bi-envelope-fill me-2"></i>Contact
+
+          <li className="nav-item">
+            <Link
+              to="/Customerview"
+              onClick={closeSidebar}
+              className="nav-link text-dark"
+            >
+              Customers
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link
+              to="/Contactview"
+              onClick={closeSidebar}
+              className="nav-link text-dark"
+            >
+              Contact
             </Link>
           </li>
         </ul>
       </nav>
 
-      {/* Mobile Hamburger */}
-      <div className="d-md-none bg-dark p-2">
+     
+      <div className="d-md-none p-2 bg-light border-bottom">
         <button
-          className="btn btn-outline-light"
+          className="btn btn-outline-dark"
           onClick={() => setSidebarOpen(true)}
         >
-          &#9776; Menu
+          ☰ Menu
         </button>
       </div>
 
-   
-      <div className="flex-grow-1 p-3" style={{ marginLeft: "0" }}>
-        <h2 className="mb-4 d-none d-md-block">Dashboard</h2>
+     
+      <main className="content">
+        <h3 className="mb-4">Dashboard</h3>
 
-    
         <div className="row g-3">
           <StatCard
-            icon={
-              <i
-                className="bi bi-currency-rupee"
-                style={{ fontSize: "2.5rem", color: "#0d6efd" }}
-              />
-            }
             title="Today's Sales"
             value={`₹${todaysSales}`}
             color="#0d6efd"
-            subtitle="Compared to yesterday"
+            icon={<i className="bi bi-currency-rupee fs-2 text-primary" />}
           />
           <StatCard
-            icon={
-              <i
-                className="bi bi-card-checklist"
-                style={{ fontSize: "2.5rem", color: "#6f42c1" }}
-              />
-            }
             title="Total Orders"
-            value={totalOrders}
+            value={orders.length}
             color="#6f42c1"
-            subtitle="All time"
+            icon={<i className="bi bi-card-checklist fs-2 text-purple" />}
           />
           <StatCard
-            icon={
-              <i
-                className="bi bi-hourglass-split"
-                style={{ fontSize: "2.5rem", color: "#ffc107" }}
-              />
-            }
             title="Pending Orders"
             value={pendingOrders}
             color="#ffc107"
+            icon={<i className="bi bi-hourglass fs-2 text-warning" />}
           />
           <StatCard
-            icon={
-              <i
-                className="bi bi-cash-stack"
-                style={{ fontSize: "2.5rem", color: "#198754" }}
-              />
-            }
-            title="Total Revenue"
+            title="Revenue"
             value={`₹${totalRevenue}`}
             color="#198754"
-            subtitle="Delivered orders only"
+            icon={<i className="bi bi-cash-stack fs-2 text-success" />}
           />
         </div>
 
-        {/* Charts */}
-        <div className="row g-4 mt-4">
-          <div className="col-12 col-lg-8">
-            <div className="card shadow-sm mb-3">
+        <div className="row mt-4 g-4">
+          <div className="col-lg-8">
+            <div className="card shadow-sm">
               <div className="card-body">
-                <div className="d-flex justify-content-between mb-3">
-                  <h5>Orders (Last 7 Days)</h5>
-                </div>
                 <Line data={ordersLineChart} />
               </div>
             </div>
           </div>
 
-          <div className="col-12 col-lg-4">
-            <div className="card shadow-sm mb-3">
+          <div className="col-lg-4">
+            <div className="card shadow-sm">
               <div className="card-body">
-                <div className="d-flex justify-content-between mb-3">
-                  <h5>Order Status</h5>
-                </div>
                 <Doughnut data={statusChart} />
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </main>
 
-    
-      <style jsx>{`
-        .sidebar {
-          position: fixed;
-          top: 0;
-          left: 0;
-          height: 100vh;
-          width: 250px;
-          z-index: 1000;
-          overflow-y: auto;
-          transition: transform 0.3s ease-in-out;
+      {/* CSS */}
+      <style>{`
+        .dashboard-wrapper {
+          display: flex;
         }
+
+        .sidebar {
+          width: 250px;
+          height: 100vh;
+          position: fixed;
+          left: 0;
+          top: 0;
+          padding: 1rem;
+          overflow-y: auto;
+          transform: translateX(-100%);
+          transition: transform 0.3s ease;
+          z-index: 1050;
+        }
+
         .sidebar.open {
           transform: translateX(0);
         }
+
+        .content {
+          margin-left: 250px;
+          padding: 1.5rem;
+          width: 100%;
+        }
+
+        .sidebar-backdrop {
+          position: fixed;
+          inset: 0;
+          background: rgba(0,0,0,0.4);
+          z-index: 1040;
+        }
+
         @media (max-width: 767px) {
-          .sidebar {
-            transform: translateX(-100%);
+          .content {
+            margin-left: 0;
           }
         }
       `}</style>
