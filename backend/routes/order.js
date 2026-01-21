@@ -75,7 +75,7 @@ otp
         await newOpt.save();
        console.log("OTP SAVED");
         const message=`Your verification code for confirmation id ${otp} `;
-        await sendEmail(email,"Reset Password",message);
+        await sendEmail(email,"Confirmation",message);
      console.log("EMAIL SENT");
         res.status(200).json({message:"otp send to your email"});
 }
