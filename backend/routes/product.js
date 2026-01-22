@@ -79,7 +79,7 @@ const htmlContent = `
   <p><strong>Price:</strong> ₹${price}</p>
   <p><strong>Category:</strong> ${category}</p>
 
-  <a href="http://localhost:3000/product/${category}/${type}"
+  <a href="https://clothing-store-frontchh.onrender.com/product/${category}/${type}"
      style="display:inline-block; padding:10px 16px;
             background:#000; color:#fff; text-decoration:none;
             border-radius:6px;">
