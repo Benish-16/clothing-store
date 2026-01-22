@@ -37,7 +37,7 @@ useEffect(() => {
 
       if (data.success) {
         setProducts(data.products);
-        setLoading(false); // ✅ stop loading only on success
+        setLoading(false); 
       } else {
         throw new Error("Fetch failed");
       }
@@ -49,7 +49,7 @@ useEffect(() => {
         retryTimeout = setTimeout(fetchProducts, 5000);
       } else {
         console.error("Failed after multiple retries", err);
-        setLoading(false); // ✅ stop loading after final failure
+        setLoading(false); 
       }
     }
   };
