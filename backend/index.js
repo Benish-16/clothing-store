@@ -7,8 +7,6 @@ connectTOMongo();
 const app = express();
 const PORT = 5000;
 
-/* ---------- CORS FIX START ---------- */
-
 const allowedOrigins = [
   "https://clothing-store-frontchh.onrender.com",
   "http://localhost:3000",
@@ -17,7 +15,6 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: function (origin, callback) {
-     
       if (!origin) return callback(null, true);
 
       if (allowedOrigins.includes(origin)) {
@@ -32,12 +29,10 @@ app.use(
   })
 );
 
-
-app.options("*", cors());
-
-
-
 app.use(express.json());
+
+
+
 
 
 
