@@ -1,29 +1,43 @@
-require('dotenv').config();
-const connectTOMongo=require('./db');
-const express=require('express');
-const cors=require('cors');
-const passport = require("passport");
-const jwt = require("jsonwebtoken");
-connectTOMongo();
-const app=express();
-const PORT =  5000;
+require("dotenv").config();
+const connectTOMongo = require("./db");
+const express = require("express");
+const cors = require("cors");
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+connectTOMongo();
+const app = express();
+const PORT = 5000;
+
+/* ---------- CORS FIX START ---------- */
+
+const allowedOrigins = [
+  "https://clothing-store-frontchh.onrender.com",
+  "http://localhost:3000",
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+     
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "auth-token"],
+  })
+);
+
+
+app.options("*", cors());
+
+
 
 app.use(express.json());
-
-
-const corsOptions = {
-  origin: "https://clothing-store-frontchh.onrender.com",
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization", "auth-token"],
-  credentials: true,
-};
-
-app.use(cors(corsOptions));
-
 
 
 
