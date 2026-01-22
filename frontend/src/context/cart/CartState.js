@@ -39,7 +39,7 @@ export const CartProvider = ({ children }) => {
     for (let attempt = 1; attempt <= retries; attempt++) {
       try {
         setProcessing(true);
-        setAlertMsg(`${message} (Attempt ${attempt}/${retries})`);
+      
 
         const res = await fetch(url, options);
 
