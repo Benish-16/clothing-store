@@ -5,7 +5,9 @@ const cors = require("cors");
 
 connectTOMongo();
 const app = express();
-const PORT = 5000;
+
+
+const PORT =  5000;
 
 const allowedOrigins = [
   "https://clothing-store-frontchh.onrender.com",
@@ -31,17 +33,19 @@ app.use(
 
 app.use(express.json());
 
-
-
-
-
-
-
-app.use('/api/auth',require('./routes/auth'))
-app.use('/api/product',require('./routes/product'))
-app.use('/api/cart',require('./routes/cart'))
-app.use('/api/order',require('./routes/order'))
-app.use('/api/type',require('./routes/type'))
+// Routes
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/product', require('./routes/product'));
+app.use('/api/cart', require('./routes/cart'));
+app.use('/api/order', require('./routes/order'));
+app.use('/api/type', require('./routes/type'));
 app.use("/api/contact", require("./routes/contact"));
 app.use("/api/subscribe", require("./routes/subscription"));
 
+
+app.get("/health", (req, res) => res.send("OK"));
+
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
