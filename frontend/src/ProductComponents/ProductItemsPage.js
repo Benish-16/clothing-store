@@ -15,27 +15,36 @@ export default function ProductItemsPage() {
   const [loading, setLoading] = useState(true);
 
 
-
 useEffect(() => {
+  let retries = 0;
+  const maxRetries = 6; 
+
   const fetchProducts = async () => {
     try {
       setLoading(true);
       const res = await fetch(
-        `https://clothing-store-backc-p6nl.onrender.com/api/product/fetchproduct?category=${category}&type=${type}`
+        `https://clothing-store-backc-p6nl.onrender.com/api/product/fetchproduct?category=${category}&type=${type}`,
+        { credentials: "include" }
       );
       const data = await res.json();
       if (data.success) {
         setProducts(data.products);
       }
     } catch (err) {
-      console.error(err);
+      if (retries < maxRetries) {
+        retries++;
+        console.log("Backend waking up, retrying...");
+        setTimeout(fetchProducts, 5000); 
+      } else {
+        console.error("Failed to fetch after multiple retries", err);
+      }
     } finally {
       setLoading(false);
     }
   };
 
   fetchProducts();
-}, [category, type, location.key]);
+}, [category, type]);
 
 
 
