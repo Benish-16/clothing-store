@@ -84,14 +84,7 @@ body {
 
 
 
-.logout-btn {
-  width: 100%;
-  padding: 0.6rem;
-  border: 1px solid #ffffff;
-  background: transparent;
-  color: white;
-  border-radius: 6px;
-}
+
 
 
 .main {
@@ -156,4 +149,42 @@ body {
     margin-left: 0;
     padding-top: 70px;
   }
+ 
+}
+ /* ===== Auth section (Desktop + Mobile) ===== */
+/* ===== Auth section (Desktop + Mobile) ===== */
+.sidebar-auth {
+  margin-top: auto;               /* pushes logout to bottom */
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.sidebar-auth a {
+  color: black;
+  text-decoration: none;
+  padding: 0.75rem;
+  border-radius: 6px;
+}
+
+.sidebar-auth a:hover {
+  background: #2b2b2b;
+  color: #f8f4ec;
+}
+
+.logout-btn {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  background: #2b2b2b;
+  color: #f8f4ec;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+
+.logout-btn:hover {
+  opacity: 0.9;
 }
