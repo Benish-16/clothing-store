@@ -19,32 +19,46 @@ useEffect(() => {
   let retries = 0;
   const maxRetries = 6; 
 
+useEffect(() => {
+  let retries = 0;
+  const maxRetries = 6;
+  let retryTimeout;
+
   const fetchProducts = async () => {
     try {
       setLoading(true);
+
       const res = await fetch(
         `https://clothing-store-backc-p6nl.onrender.com/api/product/fetchproduct?category=${category}&type=${type}`,
         { credentials: "include" }
       );
+
       const data = await res.json();
+
       if (data.success) {
         setProducts(data.products);
+        setLoading(false); // ✅ stop loading only on success
+      } else {
+        throw new Error("Fetch failed");
       }
+
     } catch (err) {
       if (retries < maxRetries) {
         retries++;
-        console.log("Backend waking up, retrying...");
-        setTimeout(fetchProducts, 5000); 
+        console.log(`Backend waking up... retry ${retries}/${maxRetries}`);
+        retryTimeout = setTimeout(fetchProducts, 5000);
       } else {
-        console.error("Failed to fetch after multiple retries", err);
+        console.error("Failed after multiple retries", err);
+        setLoading(false); // ✅ stop loading after final failure
       }
-    } finally {
-      setLoading(false);
     }
   };
 
   fetchProducts();
+
+  return () => clearTimeout(retryTimeout);
 }, [category, type]);
+
 
 
 
