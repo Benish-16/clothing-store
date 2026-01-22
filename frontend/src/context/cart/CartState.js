@@ -3,18 +3,21 @@ import CartContext from "./CartContext";
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
-  const [loading, setLoading] = useState(true);        
-  const [processing, setProcessing] = useState(false); 
+  const [loading, setLoading] = useState(true);
+  const [processing, setProcessing] = useState(false);
   const [alertMsg, setAlertMsg] = useState("");
 
   const token = localStorage.getItem("token");
 
   useEffect(() => {
     if (token) fetchCart();
-    else setLoading(false);
+    else {
+      setCartItems([]);
+      setLoading(false);
+    }
   }, [token]);
 
-  
+ 
   const safeJson = async (res) => {
     const text = await res.text();
     try {
@@ -25,41 +28,59 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  const showProcessingAlert = (msg) => {
-    setProcessing(true);
-    setAlertMsg(msg);
-  };
 
-  const hideProcessingAlert = () => {
-    setProcessing(false);
-    setAlertMsg("");
+  const fetchWithRetry = async (
+    url,
+    options = {},
+    retries = 3,
+    delay = 1000,
+    message = "Processing..."
+  ) => {
+    for (let attempt = 1; attempt <= retries; attempt++) {
+      try {
+        setProcessing(true);
+        setAlertMsg(`${message} (Attempt ${attempt}/${retries})`);
+
+        const res = await fetch(url, options);
+
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}`);
+        }
+
+        return res; 
+      } catch (err) {
+        console.error(`Attempt ${attempt} failed`, err);
+
+        if (attempt === retries) {
+          throw err; // ❌ FINAL FAIL
+        }
+
+        await new Promise((r) => setTimeout(r, delay));
+      }
+    }
   };
 
 
   const fetchCart = async () => {
-    showProcessingAlert("Loading your cart...");
-
     try {
-      const res = await fetch(
+      const res = await fetchWithRetry(
         "https://clothing-store-backc-p6nl.onrender.com/api/cart/fetchcart",
         {
           headers: { "auth-token": token },
-        }
+        },
+        3,
+        1000,
+        "Loading your cart..."
       );
-
-      if (!res.ok) {
-        console.error("Fetch cart failed:", res.status);
-        setCartItems([]);
-        return;
-      }
 
       const data = await safeJson(res);
       setCartItems(data?.items || []);
     } catch (err) {
-      console.error("Fetch cart error:", err);
+      console.error("Fetch cart failed after retries");
       setCartItems([]);
     } finally {
-      hideProcessingAlert();
+      setProcessing(false);
+      setAlertMsg("");
       setLoading(false);
     }
   };
@@ -68,10 +89,8 @@ export const CartProvider = ({ children }) => {
   const addToCart = async (item, qty) => {
     if (!token) return console.error("User not authenticated");
 
-    showProcessingAlert("Adding item to cart...");
-
     try {
-      const res = await fetch(
+      const res = await fetchWithRetry(
         "https://clothing-store-backc-p6nl.onrender.com/api/cart/addcart",
         {
           method: "POST",
@@ -80,33 +99,30 @@ export const CartProvider = ({ children }) => {
             "auth-token": token,
           },
           body: JSON.stringify({ ...item, quantity: qty }),
-        }
+        },
+        3,
+        1000,
+        "Adding item to cart..."
       );
-
-      if (!res.ok) {
-        console.error("Add to cart failed");
-        return;
-      }
 
       const data = await safeJson(res);
       if (data?.success) {
         setCartItems(data.cart.items || []);
       }
     } catch (err) {
-      console.error("Add to cart error:", err);
+      console.error("Add to cart failed after retries");
     } finally {
-      hideProcessingAlert();
+      setProcessing(false);
+      setAlertMsg("");
     }
   };
 
- 
+
   const removeFromCart = async (item) => {
     if (!token) return console.error("User not authenticated");
 
-    showProcessingAlert("Removing item from cart...");
-
     try {
-      const res = await fetch(
+      const res = await fetchWithRetry(
         "https://clothing-store-backc-p6nl.onrender.com/api/cart/removecart",
         {
           method: "DELETE",
@@ -120,24 +136,24 @@ export const CartProvider = ({ children }) => {
             size: item.size,
             quantity: item.quantity,
           }),
-        }
+        },
+        3,
+        1000,
+        "Removing item from cart..."
       );
-
-      if (!res.ok) {
-        console.error("Remove from cart failed");
-        return;
-      }
 
       const data = await safeJson(res);
       if (data?.success) {
         setCartItems(data.cart.items || []);
       }
     } catch (err) {
-      console.error("Remove from cart error:", err);
+      console.error("Remove from cart failed after retries");
     } finally {
-      hideProcessingAlert();
+      setProcessing(false);
+      setAlertMsg("");
     }
   };
+
 
   const clearCart = () => setCartItems([]);
 
@@ -145,15 +161,20 @@ export const CartProvider = ({ children }) => {
     <CartContext.Provider
       value={{
         cartItems,
-        setCartItems,
         loading,
         processing,
         alertMsg,
         addToCart,
         removeFromCart,
         clearCart,
+        setCartItems,
       }}
     >
+      {processing && (
+        <div className="alert alert-warning text-center m-0">
+          {alertMsg}
+        </div>
+      )}
       {children}
     </CartContext.Provider>
   );
