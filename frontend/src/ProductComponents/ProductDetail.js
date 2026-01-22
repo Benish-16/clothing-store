@@ -22,7 +22,7 @@ export default function ProductDetail() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/product/${id}`)
+    fetch(`https://clothing-store-backc-p6nl.onrender.com/api/product/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setProduct(data);
