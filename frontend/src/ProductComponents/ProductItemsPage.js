@@ -16,7 +16,7 @@ export default function ProductItemsPage() {
     const fetchProducts = async () => {
       try {
         const res = await fetch(
-        `http://localhost:5000/api/product/fetchproduct?category=${category}&type=${type}`
+        `https://clothing-store-backc-p6nl.onrender.com/api/product/fetchproduct?category=${category}&type=${type}`
         );
         const data = await res.json();
         if (data.success) {
