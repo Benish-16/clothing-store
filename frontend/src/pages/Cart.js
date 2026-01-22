@@ -5,13 +5,7 @@ import alertContext from "../context/alert/alertContext";
 
 export default function Cart() {
        const { showAlert } = useContext(alertContext);
-  const { processing, alertMsg } = useCart();
 
-useEffect(() => {
-  if (processing && alertMsg) {
-    showAlert(`Please wait a minute… `, "info");
-  }
-}, [processing, alertMsg, showAlert]);
 
   const navigate = useNavigate();
   const { cartItems, addToCart,removeFromCart, loading } = useCart();
