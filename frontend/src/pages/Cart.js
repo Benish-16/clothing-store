@@ -7,9 +7,11 @@ export default function Cart() {
        const { showAlert } = useContext(alertContext);
   const { processing, alertMsg } = useCart();
 
-{processing && (
- showAlert({alertMsg},'danger')
-)}
+useEffect(() => {
+  if (processing && alertMsg) {
+    showAlert(`Please wait a minute… ${alertMsg}`, "info");
+  }
+}, [processing, alertMsg, showAlert]);
 
   const navigate = useNavigate();
   const { cartItems, addToCart,removeFromCart, loading } = useCart();
