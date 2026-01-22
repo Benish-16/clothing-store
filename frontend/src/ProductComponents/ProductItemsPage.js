@@ -17,10 +17,6 @@ export default function ProductItemsPage() {
 
 useEffect(() => {
   let retries = 0;
-  const maxRetries = 6; 
-
-useEffect(() => {
-  let retries = 0;
   const maxRetries = 6;
   let retryTimeout;
 
