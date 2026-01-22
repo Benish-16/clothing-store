@@ -143,7 +143,7 @@ const add=( item,qty)=>{
 
                       <div className="d-flex justify-content-between mb-3">
                         <span>Items ({totalItems})</span>
-                        <span>€ {(subtotal ).toFixed(2)}</span>
+                        <span>₹{(subtotal ).toFixed(2)}</span>
                       </div>
 
                       <h6 className="text-uppercase">Shipping</h6>
@@ -155,8 +155,8 @@ const add=( item,qty)=>{
     setDeliveryType(value === 5 ? "Standard" : "Express");
   }}
 >
-                        <option value={5}>Standard Delivery - €5.00</option>
-                        <option value={10}>Express Delivery - €10.00</option>
+                        <option value={5}>Standard Delivery - ₹5.00</option>
+                        <option value={10}>Express Delivery - ₹10.00</option>
                       </select>
 
                      
@@ -165,7 +165,7 @@ const add=( item,qty)=>{
 
                       <div className="d-flex justify-content-between mb-4">
                         <strong>Total</strong>
-                        <strong>€ {(subtotal + shipping).toFixed(2)}</strong>
+                        <strong>₹ {(subtotal + shipping).toFixed(2)}</strong>
                       </div>
 
                     <button
