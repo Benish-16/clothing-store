@@ -1,10 +1,10 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../Sidebar.css";
 import authContext from "../context/auth/authContext";
+
 export default function Sidebar() {
-   const capitalize = (str) => str ? str.charAt(0).toUpperCase() + str.slice(1) : "";
-        const { user } = useContext(authContext);
+  const { user } = useContext(authContext);
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -26,12 +26,14 @@ export default function Sidebar() {
         >
           ☰
         </button>
-         <span className="navbar-title">{`${capitalize(user?.name)} `} Dashboard</span>
+        <span className="navbar-title">
+          {user?.name ? user.name : "Admin"} Dashboard
+        </span>
       </nav>
 
-
+  
       <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
-        {/* Mobile Header */}
+
         <div className="sidebar-header d-md-none">
           <h5>Admin Panel</h5>
           <button
@@ -42,7 +44,6 @@ export default function Sidebar() {
           </button>
         </div>
 
-       
         <nav className="sidebar-links">
           <Link to="/" onClick={() => setSidebarOpen(false)}>Dashboard</Link>
           <Link to="/men" onClick={() => setSidebarOpen(false)}>Men</Link>
@@ -51,17 +52,27 @@ export default function Sidebar() {
           <Link to="/Contactview" onClick={() => setSidebarOpen(false)}>Contact</Link>
         </nav>
 
-     
-        {isLoggedIn && (
-          <div className="mobile-logout d-md-none">
+   
+        <div className="sidebar-auth">
+          {!isLoggedIn ? (
+            <>
+              <Link to="/login" onClick={() => setSidebarOpen(false)}>
+                Login
+              </Link>
+              <Link to="/signup" onClick={() => setSidebarOpen(false)}>
+                Signup
+              </Link>
+            </>
+          ) : (
             <button className="logout-btn" onClick={handleLogout}>
               Logout
             </button>
-          </div>
-        )}
+          )}
+        </div>
+
       </aside>
 
- 
+
       {sidebarOpen && (
         <div className="overlay" onClick={() => setSidebarOpen(false)} />
       )}
