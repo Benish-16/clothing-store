@@ -3,31 +3,40 @@ import { useParams } from "react-router-dom";
 import ProductItem from "./ProductItem";
 import authContext from "../context/auth/authContext";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+
 
 export default function ProductItemsPage() {
+      const location = useLocation();
       const navigate = useNavigate();
   const { user } = useContext(authContext);
   const { category, type } = useParams();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await fetch(
+
+
+useEffect(() => {
+  const fetchProducts = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch(
         `https://clothing-store-backc-p6nl.onrender.com/api/product/fetchproduct?category=${category}&type=${type}`
-        );
-        const data = await res.json();
-        if (data.success) {
-          setProducts(data.products);
-        }
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
+      );
+      const data = await res.json();
+      if (data.success) {
+        setProducts(data.products);
       }
-    };
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchProducts();
+}, [category, type, location.key]);
+
 
     fetchProducts();
   }, [category, type]);
