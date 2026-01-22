@@ -52,7 +52,7 @@ export const CartProvider = ({ children }) => {
         console.error(`Attempt ${attempt} failed`, err);
 
         if (attempt === retries) {
-          throw err; // ❌ FINAL FAIL
+          throw err; 
         }
 
         await new Promise((r) => setTimeout(r, delay));
@@ -108,6 +108,7 @@ export const CartProvider = ({ children }) => {
       const data = await safeJson(res);
       if (data?.success) {
         setCartItems(data.cart.items || []);
+        window.location.reload()
       }
     } catch (err) {
       console.error("Add to cart failed after retries");
@@ -145,6 +146,7 @@ export const CartProvider = ({ children }) => {
       const data = await safeJson(res);
       if (data?.success) {
         setCartItems(data.cart.items || []);
+        window.location.reload()
       }
     } catch (err) {
       console.error("Remove from cart failed after retries");
