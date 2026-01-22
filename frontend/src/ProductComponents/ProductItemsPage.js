@@ -38,9 +38,7 @@ useEffect(() => {
 }, [category, type, location.key]);
 
 
-    fetchProducts();
-  }, [category, type]);
-  
+
   const handleDelete = (id) => {
   setProducts(product => product.filter(p => p._id !== id));
 };
