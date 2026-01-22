@@ -55,6 +55,7 @@ const handleSubmit = async (e) => {
   setSize("");
   setQuantity("");
   setDescription("");
+          navigate(-1); 
    
     } else {
       showAlert(data?.message || "Something went wrong", "danger");
