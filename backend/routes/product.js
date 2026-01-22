@@ -140,7 +140,7 @@ router.get("/fetchproduct", async (req, res) => {
 router.put("/update/:id", fetchuser, async (req, res) => {
   try {
     const productId = req.params.id;
-    const { name, variants } = req.body;
+    const { name, variants ,price,description } = req.body;
  const dbUser = await User.findById(req.user.id);
 
     if (!dbUser || !dbUser.admin) {
@@ -149,7 +149,7 @@ router.put("/update/:id", fetchuser, async (req, res) => {
 
     const product = await Product.findByIdAndUpdate(
       productId,
-      { name, variants },
+      { name, variants ,price,description},
       { new: true }
     );
 
