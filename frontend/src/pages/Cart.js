@@ -1,8 +1,16 @@
-import React from "react";
+import React, {  useContext } from "react";
 import { useCart } from "../context/cart/CartState";
 import { useNavigate } from "react-router-dom";
+import alertContext from "../context/alert/alertContext";
 
 export default function Cart() {
+       const { showAlert } = useContext(alertContext);
+  const { processing, alertMsg } = useCart();
+
+{processing && (
+ showAlert({alertMsg},'danger')
+)}
+
   const navigate = useNavigate();
   const { cartItems, addToCart,removeFromCart, loading } = useCart();
   const [deliveryType, setDeliveryType] = React.useState("Standard");
