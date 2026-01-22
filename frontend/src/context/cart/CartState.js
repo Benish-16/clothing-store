@@ -88,7 +88,7 @@ export const CartProvider = ({ children }) => {
  
   const addToCart = async (item, qty ) => {
     try {
-      const res = await fetch("http://localhost:5000/api/cart/addcart", {
+      const res = await fetch("https://clothing-store-backc-p6nl.onrender.com/api/cart/addcart", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -108,7 +108,7 @@ export const CartProvider = ({ children }) => {
  const removeFromCart = async (item ) => {
     console.log( item.product._id,item.variant.color, item.size);
     try {
-      const res = await fetch("http://localhost:5000/api/cart/removecart", {
+      const res = await fetch("https://clothing-store-backc-p6nl.onrender.com/api/cart/removecart", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
