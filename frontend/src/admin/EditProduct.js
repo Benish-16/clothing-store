@@ -39,13 +39,13 @@ export default function EditProduct() {
     setVariants(updated);
   };
 
-  // ===== Save Changes =====
+  
   const handleSaveChanges = async () => {
     const token = localStorage.getItem("token");
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/product/update/${product._id}`,
+        `https://clothing-store-backc-p6nl.onrender.com/api/product/update/${product._id}`,
         {
           method: "PUT",
           headers: {
@@ -75,7 +75,7 @@ export default function EditProduct() {
     }
   };
 
-  // ===== JSX =====
+
   return (
     <main className="main mt-5">
       <div className="container my-4">
