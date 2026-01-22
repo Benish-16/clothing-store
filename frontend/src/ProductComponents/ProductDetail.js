@@ -53,6 +53,7 @@ export default function ProductDetail() {
     );
   }
 const handleAddToCart = async () => {
+    showAlert('Product added to item','success');
   if (!selectedVariant || !selectedSize) return;
 
     const cartItem = {
