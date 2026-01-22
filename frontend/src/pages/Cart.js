@@ -9,7 +9,7 @@ export default function Cart() {
 
 useEffect(() => {
   if (processing && alertMsg) {
-    showAlert(`Please wait a minute… ${alertMsg}`, "info");
+    showAlert(`Please wait a minute… `, "info");
   }
 }, [processing, alertMsg, showAlert]);
 
