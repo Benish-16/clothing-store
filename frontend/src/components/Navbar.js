@@ -54,7 +54,7 @@ export default function Navbar() {
 
         <li className="nav-item">
   <Link to="/cart" className="nav-link">
-    <i className="bi bi-bag" style={{ fontSize: '1.3rem', verticalAlign: 'middle' }}></i>
+      <i className="bi bi-bag cart-icon"></i>
   </Link>
 </li>
 
