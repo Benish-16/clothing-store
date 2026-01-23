@@ -20,21 +20,20 @@ export default function Navbar() {
     >
       <div className="container-fluid px-4 px-lg-5 d-flex align-items-center justify-content-between">
 
-        {/* 👜 BAG — LEFT (mobile only) */}
         <Link to="/cart" className="nav-link d-lg-none order-1">
           <i className="bi bi-bag fs-4"></i>
         </Link>
 
-        {/* BRAND — CENTER */}
+   
         <Link
           to="/"
           className="navbar-brand mx-auto fw-light text-center order-2"
           style={{ letterSpacing: "4px" }}
         >
-          {user?.admin ? `${user?.name} Dashboard` : "MINIMAL"}
+        "MINIMAL"
         </Link>
 
-        {/* ☰ HAMBURGER — RIGHT (mobile only) */}
+
         <button
           className="navbar-toggler border-0 d-lg-none order-3"
           type="button"
@@ -43,7 +42,7 @@ export default function Navbar() {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        {/* DESKTOP CENTER MENU */}
+
         <ul className="navbar-nav gap-4 d-none d-lg-flex mx-auto">
           <li><Link to="/women" className="nav-link">WOMEN</Link></li>
           <li><Link to="/men" className="nav-link">MEN</Link></li>
@@ -51,7 +50,6 @@ export default function Navbar() {
           <li><Link to="/contact" className="nav-link">CONTACT</Link></li>
         </ul>
 
-        {/* DESKTOP RIGHT */}
         <ul className="navbar-nav gap-3 d-none d-lg-flex align-items-center ms-auto">
           {!localStorage.getItem("token") ? (
             <>
@@ -76,10 +74,8 @@ export default function Navbar() {
           </li>
         </ul>
 
-        {/* MOBILE COLLAPSE MENU */}
-        <div
-          className={`collapse navbar-collapse d-lg-none w-100 order-4 ${menuOpen ? "show" : ""}`}
-        >
+       <div className={`collapse navbar-collapse d-lg-none ${menuOpen ? "show" : ""}`}>
+
           <ul className="navbar-nav text-center py-4 gap-3">
             <li><Link to="/women" className="nav-link" onClick={() => setMenuOpen(false)}>WOMEN</Link></li>
             <li><Link to="/men" className="nav-link" onClick={() => setMenuOpen(false)}>MEN</Link></li>
