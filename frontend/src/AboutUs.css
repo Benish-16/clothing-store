@@ -9,6 +9,38 @@
   background: url("https://media.everlane.com/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_auto/v1/i/89f45c02_bb65.jpg")
     center/cover no-repeat;
   position: relative;
+  
+
+  .page-offset {
+    margin-top: 60px;
+  }
+
+
+  .about-hero {
+    height: 60vh;
+  }
+
+  .about-hero h1 {
+    font-size: 1.7rem;
+    line-height: 1.25;
+  }
+
+  .about-hero p {
+    font-size: 0.85rem;
+    max-width: 90%;
+  }
+
+
+  .about-intro {
+    margin: 2.5rem 0.4rem;
+    font-size: 0.95rem;
+  }
+
+
+  .about-image-full {
+    height: 38vh;
+  }
+
 }
 
 .about-hero .overlay {
