@@ -90,41 +90,56 @@
   background: #999;
 }
 
+@media (max-width: 480px) {
 
-@media (max-width: 768px) {
+
+  .page-offset {
+    margin-top: 60px;
+  }
+
+
   .about-hero {
-    height: 70vh;
+    height: 60vh;
   }
 
   .about-hero h1 {
-    font-size: 2rem;
-    padding: 0 1rem;
+    font-size: 1.7rem;
+    line-height: 1.25;
   }
 
   .about-hero p {
-    font-size: 0.9rem;
-    padding: 0 1rem;
+    font-size: 0.85rem;
+    max-width: 90%;
   }
+
 
   .about-intro {
-    margin: 3rem 1rem;
-    font-size: 1rem;
+    margin: 2.5rem 1rem;
+    font-size: 0.95rem;
   }
+
 
   .about-image-full {
-    height: 45vh;
+    height: 38vh;
   }
 
-  .price-bars {
-    flex-direction: column;
-    gap: 2rem;
+
+  .about-video {
+    max-height: 45vh;
+    object-fit: cover;
   }
 
-  .bar.light {
-    height: 80px;
+
+  .about-transparency {
+    margin: 3rem 1rem;
   }
 
-  .bar.dark {
-    height: 120px;
+  .price-bars span {
+    font-size: 0.9rem;
+  }
+
+  .bar {
+    width: 50px;
   }
 }
+
