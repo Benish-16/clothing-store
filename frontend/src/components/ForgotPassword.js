@@ -24,7 +24,13 @@ export default function ForgotPassword({ setStep, setEmail}) {
       setStep(2);
    showAlert("Otp send to your mail",'success');
     } else {
-         showAlert("something went wrong",'danger');
+        if (res.status === 404) {
+    showAlert("Email not found", "danger");
+  } else if (data?.message) {
+    showAlert(data.message, "danger");
+  } else {
+    showAlert("Something went wrong", "danger");
+  }
     }
   };
 
