@@ -53,6 +53,16 @@ export default function ProductDetail() {
     );
   }
 const handleAddToCart = async () => {
+     const token = localStorage.getItem("token");
+
+
+  if (!token) {
+    showAlert("Please login to add items to cart", "warning");
+    navigate("/login");
+      
+    return;
+  }
+
     showAlert('Product added to item','success');
   if (!selectedVariant || !selectedSize) return;
 
