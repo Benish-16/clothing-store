@@ -12,11 +12,6 @@ export default function Checkout() {
   const data =
     location.state || JSON.parse(localStorage.getItem("checkoutData"));
 
-  if (!data) {
-    return <Navigate to="/cart" replace />;
-  }
-
-  const { cartItems, subtotal, shippingCost, deliveryType, total } = data;
 
   const [otpSent, setOtpSent] = useState(
     localStorage.getItem("otpSent") === "true"
@@ -27,6 +22,12 @@ export default function Checkout() {
   );
 
 
+  if (!data) {
+    return <Navigate to="/cart" replace />;
+  }
+
+  const { cartItems, subtotal, shippingCost, deliveryType, total } = data;
+
   const handleChange = (value, index) => {
     if (!/^\d?$/.test(value)) return;
 
@@ -35,17 +36,14 @@ export default function Checkout() {
     setOtp(newOtp);
     localStorage.setItem("otp", JSON.stringify(newOtp));
 
-
     if (value && index < otp.length - 1) {
       document.getElementById(`otp-${index + 1}`)?.focus();
     }
 
- 
     if (!value && index > 0) {
       document.getElementById(`otp-${index - 1}`)?.focus();
     }
   };
-
 
   const sendOtp = async (e) => {
     e.preventDefault();
@@ -76,12 +74,11 @@ export default function Checkout() {
       } else {
         showAlert(result.error || "OTP failed", "danger");
       }
-    } catch (err) {
+    } catch {
       showAlert("OTP error", "danger");
     }
   };
 
- 
   const handleCheckout = async (e) => {
     e.preventDefault();
 
@@ -134,13 +131,9 @@ export default function Checkout() {
       );
 
       clearCart();
-      localStorage.removeItem("otpSent");
-      localStorage.removeItem("otp");
-      localStorage.removeItem("checkoutEmail");
-      localStorage.removeItem("checkoutData");
-
+      localStorage.clear();
       navigate("/confirmation");
-    } catch (err) {
+    } catch {
       showAlert("Something went wrong", "danger");
     }
   };
