@@ -80,7 +80,7 @@ export const CartProvider = ({ children }) => {
       setCartItems([]);
     } finally {
       setProcessing(false);
-      setAlertMsg("");
+      
       setLoading(false);
     }
   };
