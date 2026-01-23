@@ -42,14 +42,14 @@ export default function Navbar() {
           </div>
         )}
 
-        <ul className="navbar-nav flex-row gap-3 d-none d-lg-flex align-items-center">
+        <ul className="navbar-nav flex-row gap-2 d-none d-lg-flex align-items-center">
           {!localStorage.getItem('token') ? (
             <>
-              <Link to="/login" className="btn btn mx-2">Login</Link>
-              <Link to="/signup" className="btn btn mx-2">Signup</Link>
+              <Link to="/login" className="btn btn-dark mx-2">Login</Link>
+              <Link to="/signup" className="btn btn-dark mx-2">Signup</Link>
             </>
           ) : (
-            <button className="btn btn" onClick={handleLogout}>Logout</button>
+            <button className="btn btn-dark" onClick={handleLogout}>Logout</button>
           )}
 
           <li className="nav-item">
