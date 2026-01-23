@@ -12,7 +12,6 @@ export default function Checkout() {
   const data =
     location.state || JSON.parse(localStorage.getItem("checkoutData"));
 
-
   const [otpSent, setOtpSent] = useState(
     localStorage.getItem("otpSent") === "true"
   );
@@ -21,12 +20,11 @@ export default function Checkout() {
     JSON.parse(localStorage.getItem("otp")) || ["", "", "", "", "", ""]
   );
 
-
-  if (!data) {
-    return <Navigate to="/cart" replace />;
-  }
+  if (!data) return <Navigate to="/cart" replace />;
 
   const { cartItems, subtotal, shippingCost, deliveryType, total } = data;
+
+
 
   const handleChange = (value, index) => {
     if (!/^\d?$/.test(value)) return;
@@ -39,7 +37,6 @@ export default function Checkout() {
     if (value && index < otp.length - 1) {
       document.getElementById(`otp-${index + 1}`)?.focus();
     }
-
     if (!value && index > 0) {
       document.getElementById(`otp-${index - 1}`)?.focus();
     }
@@ -107,9 +104,23 @@ export default function Checkout() {
         return;
       }
 
-      showAlert("OTP verified", "success");
+
+
+      const customer = {
+        firstName: document.getElementById("firstName").value,
+        lastName: document.getElementById("lastName").value,
+        email,
+        phone: document.getElementById("phone").value,
+        address: document.getElementById("address").value,
+        apartment: document.getElementById("apartment").value,
+        city: document.getElementById("city").value,
+        state: document.getElementById("state").value,
+        pin: document.getElementById("pin").value,
+        country: "India",
+      };
 
       const payload = {
+        customer,
         cartItems,
         subtotal,
         shippingCost,
@@ -138,48 +149,95 @@ export default function Checkout() {
     }
   };
 
+
   return (
-    <div className="container py-5">
-      <h3 className="text-center mb-4">Checkout</h3>
+    <div className="container-fluid py-5" style={{ minHeight: "100vh" }}>
+      <div className="row justify-content-center">
+        <div className="col-lg-6">
+          <div className="bg-white shadow rounded-4 p-4">
+            <h3 className="fw-bold text-center mb-4">Checkout</h3>
 
-      <form onSubmit={!otpSent ? sendOtp : handleCheckout}>
-        <input
-          id="email"
-          type="email"
-          className="form-control mb-3"
-          placeholder="Email"
-          defaultValue={localStorage.getItem("checkoutEmail") || ""}
-          disabled={otpSent}
-          required
-        />
-
-        {otpSent && (
-          <div className="d-flex justify-content-between mb-3">
-            {otp.map((digit, index) => (
+            <form onSubmit={!otpSent ? sendOtp : handleCheckout}>
+  
+              <h6 className="fw-bold">Contact</h6>
               <input
-                key={index}
-                id={`otp-${index}`}
-                type="text"
-                maxLength="1"
-                value={digit}
-                className="form-control text-center mx-1"
-                style={{ width: "45px", fontSize: "18px" }}
-                onChange={(e) => handleChange(e.target.value, index)}
+                id="email"
+                type="email"
+                className="form-control mb-3"
+                placeholder="Email"
+                defaultValue={localStorage.getItem("checkoutEmail") || ""}
+                disabled={otpSent}
+                required
               />
-            ))}
-          </div>
-        )}
 
-        <button
-          type="submit"
-          disabled={otpSent && otp.some((d) => d === "")}
-          className={`btn w-100 ${
-            otpSent ? "btn-success" : "btn-dark"
-          }`}
-        >
-          {!otpSent ? "Pay Now" : "Confirm Order"}
-        </button>
-      </form>
+            
+              <h6 className="fw-bold mt-4">Delivery</h6>
+
+              <div className="row">
+                <div className="col">
+                  <input id="firstName" className="form-control mb-3" placeholder="First name" required />
+                </div>
+                <div className="col">
+                  <input id="lastName" className="form-control mb-3" placeholder="Last name" required />
+                </div>
+              </div>
+
+              <input id="address" className="form-control mb-3" placeholder="Address" required />
+              <input id="apartment" className="form-control mb-3" placeholder="Apartment (optional)" />
+
+              <div className="row">
+                <div className="col-md-5">
+                  <input id="city" className="form-control mb-3" placeholder="City" required />
+                </div>
+                <div className="col-md-4">
+                  <input id="state" className="form-control mb-3" placeholder="State" required />
+                </div>
+                <div className="col-md-3">
+                  <input id="pin" className="form-control mb-3" placeholder="PIN" required />
+                </div>
+              </div>
+
+              <input id="phone" className="form-control mb-4" placeholder="Phone number" required />
+
+              <h6 className="fw-bold">Payment</h6>
+              <input className="form-control mb-3" placeholder="Card number" required />
+              <div className="row">
+                <div className="col">
+                  <input className="form-control mb-3" placeholder="MM / YY" required />
+                </div>
+                <div className="col">
+                  <input className="form-control mb-3" placeholder="CVV" required />
+                </div>
+              </div>
+
+
+              {otpSent && (
+                <div className="d-flex justify-content-between mb-3">
+                  {otp.map((digit, index) => (
+                    <input
+                      key={index}
+                      id={`otp-${index}`}
+                      maxLength="1"
+                      className="form-control text-center mx-1"
+                      style={{ width: "45px" }}
+                      value={digit}
+                      onChange={(e) => handleChange(e.target.value, index)}
+                    />
+                  ))}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={otpSent && otp.some((d) => d === "")}
+                className={`btn w-100 ${otpSent ? "btn-success" : "btn-dark"}`}
+              >
+                {!otpSent ? "Pay Now" : "Confirm Order"}
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
