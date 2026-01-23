@@ -142,7 +142,7 @@ export const CartProvider = ({ children }) => {
         cartItems,
         loading,
         processing,
-        alertMsg,
+     
         addToCart,
         removeFromCart,
         clearCart,
