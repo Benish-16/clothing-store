@@ -10,16 +10,12 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 992) {
-        setMenuOpen(false);
-      }
+      if (window.innerWidth >= 992) setMenuOpen(false);
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const capitalize = (str) =>
-    str ? str.charAt(0).toUpperCase() + str.slice(1) : "";
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -30,17 +26,18 @@ export default function Navbar() {
     <nav className="navbar navbar-expand-lg bg-white fixed-top py-3 shadow-sm">
       <div className="container-fluid px-4 px-lg-5">
 
-
+    
         <Link to="/cart" className="nav-link d-lg-none">
           <i className="bi bi-bag fs-4"></i>
         </Link>
 
+  
         <Link
           to="/"
           className="navbar-brand mx-auto mx-lg-0 fw-light"
           style={{ letterSpacing: "4px" }}
         >
-         MINIMAL
+        MINIMAL
         </Link>
 
 
@@ -52,9 +49,8 @@ export default function Navbar() {
           <span className="navbar-toggler-icon"></span>
         </button>
 
- 
-        <div className={`collapse navbar-collapse ${menuOpen ? "show" : ""}`}>
 
+        <div className={`collapse navbar-collapse ${menuOpen ? "show" : ""}`}>
 
           <ul className="navbar-nav mx-auto gap-4 text-center">
             <li className="nav-item">
@@ -79,17 +75,24 @@ export default function Navbar() {
             </li>
           </ul>
 
-
           <ul className="navbar-nav gap-3 align-items-center ms-lg-auto text-center">
             {!localStorage.getItem("token") ? (
               <>
                 <li className="nav-item">
-                  <Link to="/login" className="btn btn-outline-dark btn-sm" onClick={() => setMenuOpen(false)}>
+                  <Link
+                    to="/login"
+                    className="btn btn-outline-dark btn-sm"
+                    onClick={() => setMenuOpen(false)}
+                  >
                     Login
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/signup" className="btn btn-dark btn-sm" onClick={() => setMenuOpen(false)}>
+                  <Link
+                    to="/signup"
+                    className="btn btn-dark btn-sm"
+                    onClick={() => setMenuOpen(false)}
+                  >
                     Signup
                   </Link>
                 </li>
@@ -108,7 +111,7 @@ export default function Navbar() {
               </li>
             )}
 
-      
+   
             <li className="nav-item d-none d-lg-block">
               <Link to="/cart" className="nav-link">
                 <i className="bi bi-bag fs-5"></i>
