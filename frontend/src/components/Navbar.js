@@ -57,7 +57,7 @@ export default function Navbar() {
           </li>
         </ul>
 
-        <div className="d-flex d-lg-none w-100 justify-content-between align-items-center py-2 px-3" style={{ minHeight: '56px' }}>
+        <div className="d-flex d-lg-none w-100 justify-content-between align-items-center  px-3" style={{ minHeight: '56px' }}>
           <button
             className="navbar-toggler border-0 p-0"
             type="button"
@@ -82,21 +82,50 @@ export default function Navbar() {
         </div>
 
         <div className={`collapse navbar-collapse ${menuOpen ? "show" : ""}`}>
-         <ul className="navbar-nav text-center py-0 gap-3 d-lg-none">
-            <li><Link to="/women" className="nav-link">WOMEN</Link></li>
-            <li><Link to="/men" className="nav-link">MEN</Link></li>
-            <li><Link to="/about" className="nav-link">ABOUT</Link></li>
-            <li><Link to="/contact" className="nav-link">CONTACT</Link></li>
+       <ul className="navbar-nav text-center py-3 gap-3 d-lg-none">
+  <li>
+    <Link to="/women" className="nav-link fw-semibold text-dark">WOMEN</Link>
+  </li>
+  <li>
+    <Link to="/men" className="nav-link fw-semibold text-dark">MEN</Link>
+  </li>
+  <li>
+    <Link to="/about" className="nav-link fw-semibold text-dark">ABOUT</Link>
+  </li>
+  <li>
+    <Link to="/contact" className="nav-link fw-semibold text-dark">CONTACT</Link>
+  </li>
 
-            {!localStorage.getItem('token') ? (
-              <>
-                <Link to="/login" className="btn btn mx-2">Login</Link>
-                <Link to="/signup" className="btn btn-primary mx-2">Signup</Link>
-              </>
-            ) : (
-              <button className="btn btn" onClick={handleLogout}>Logout</button>
-            )}
-          </ul>
+  <li className="d-flex justify-content-center gap-2 mt-2">
+    {!localStorage.getItem('token') ? (
+      <>
+        <Link
+          to="/login"
+          className="btn btn-outline-primary px-4 py-2 rounded-pill fw-bold"
+          style={{ borderWidth: '2px' }}
+        >
+          Login
+        </Link>
+        <Link
+          to="/signup"
+          className="btn btn-primary px-4 py-2 rounded-pill fw-bold"
+          style={{ borderWidth: '2px' }}
+        >
+          Signup
+        </Link>
+      </>
+    ) : (
+      <button
+        className="btn btn-outline-danger px-4 py-2 rounded-pill fw-bold"
+        style={{ borderWidth: '2px' }}
+        onClick={handleLogout}
+      >
+        Logout
+      </button>
+    )}
+  </li>
+</ul>
+
         </div>
 
       </div>
