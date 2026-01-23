@@ -33,7 +33,7 @@ export default function AboutUs() {
         </section>
 
      
-        <section className="container-fluid py-5">
+        <section className="container-fluid py-4 py-md-5">
           <div className="row align-items-center">
 
             <div className="col-md-6 px-4 mb-4 mb-md-0">
