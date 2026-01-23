@@ -82,7 +82,7 @@ export default function Navbar() {
         </div>
 
         <div className={`collapse navbar-collapse ${menuOpen ? "show" : ""}`}>
-          <ul className="navbar-nav text-center  gap-3 d-lg-none">
+         <ul className="navbar-nav text-center py-1 gap-3 d-lg-none">
             <li><Link to="/women" className="nav-link">WOMEN</Link></li>
             <li><Link to="/men" className="nav-link">MEN</Link></li>
             <li><Link to="/about" className="nav-link">ABOUT</Link></li>
