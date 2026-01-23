@@ -52,12 +52,12 @@ export default function Navbar() {
             <button className="btn btn-dark" onClick={handleLogout}>Logout</button>
           )}
 
-          <li className="nav-item">
-        <Link to="/cart" className="nav-link">
-  <i className="bi bi-bag" style={{ fontSize: '1.8rem' }}></i>
-</Link>
+        <li className="nav-item">
+  <Link to="/cart" className="nav-link">
+    <i className="bi bi-bag" style={{ fontSize: '1.3rem', verticalAlign: 'middle' }}></i>
+  </Link>
+</li>
 
-          </li>
         </ul>
 
         <div className="d-flex d-lg-none w-100 justify-content-between align-items-center  px-3" style={{ minHeight: '56px' }}>
