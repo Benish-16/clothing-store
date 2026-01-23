@@ -1,9 +1,14 @@
 
+.page-offset {
+  margin-top: 70px; 
+}
+
+
 .about-hero {
   height: 90vh;
-  background: url("https://media.everlane.com/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_auto/v1/i/89f45c02_bb65.jpg") center/cover no-repeat;
+  background: url("https://media.everlane.com/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_auto/v1/i/89f45c02_bb65.jpg")
+    center/cover no-repeat;
   position: relative;
-  top:50px;
 }
 
 .about-hero .overlay {
@@ -13,21 +18,19 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: white;
+  background: rgba(0, 0, 0, 0.25);
+  color: #fff;
   text-align: center;
-  background: rgba(0,0,0,0.25);
 }
 
 .about-hero h1 {
   font-size: 3rem;
   font-weight: 500;
-  line-height: 1.2;
 }
 
 .about-hero p {
   margin-top: 1rem;
   font-size: 1rem;
-  letter-spacing: 0.5px;
 }
 
 
@@ -42,19 +45,15 @@
 
 .about-image-full {
   height: 80vh;
-  background: url("https://media.everlane.com/image/upload/c_fill,dpr_2.0,f_auto,g_face,h_700,q_auto,w_700/v1/i/4a5e24a2_85d5.jpg") center/cover no-repeat;
-  margin: 5rem 0;
-}
-.about-video-full {
-  height: 80vh;
- 
-  margin: 2rem 0;
-}
-body {
-  overflow-x: hidden;
+  background: url("https://media.everlane.com/image/upload/c_fill,dpr_2.0,f_auto,g_face,h_700,q_auto,w_700/v1/i/4a5e24a2_85d5.jpg")
+    center/cover no-repeat;
 }
 
-
+/* VIDEO */
+.about-video {
+  width: 100%;
+  height: auto;
+}
 
 
 .about-transparency {
@@ -64,14 +63,9 @@ body {
 }
 
 .section-label {
-  letter-spacing: 1px;
   font-size: 0.8rem;
+  letter-spacing: 1px;
   color: #888;
-}
-
-.about-transparency h2 {
-  font-weight: 500;
-  margin: 1rem 0;
 }
 
 .price-bars {
@@ -97,18 +91,40 @@ body {
 }
 
 
-.about-explore {
-  margin: 6rem auto;
-}
+@media (max-width: 768px) {
+  .about-hero {
+    height: 70vh;
+  }
 
-.explore-card img {
-  width: 100%;
-  height: 260px;
-  object-fit: cover;
-}
+  .about-hero h1 {
+    font-size: 2rem;
+    padding: 0 1rem;
+  }
 
-.explore-card p {
-  text-align: center;
-  margin-top: 0.75rem;
-  font-weight: 500;
+  .about-hero p {
+    font-size: 0.9rem;
+    padding: 0 1rem;
+  }
+
+  .about-intro {
+    margin: 3rem 1rem;
+    font-size: 1rem;
+  }
+
+  .about-image-full {
+    height: 45vh;
+  }
+
+  .price-bars {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .bar.light {
+    height: 80px;
+  }
+
+  .bar.dark {
+    height: 120px;
+  }
 }
