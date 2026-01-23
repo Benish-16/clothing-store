@@ -120,7 +120,7 @@ const { clearCart } = useCart();
         showAlert("Order placed successfully!", "success");
         navigate('/confirmation');
      
-          const Email= await fetch("http://localhost:5000/api/order/sendemail", {
+          const Email= await fetch("https://clothing-store-backc-p6nl.onrender.com/api/order/sendemail", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
