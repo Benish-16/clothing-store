@@ -79,6 +79,7 @@
   height: 80vh;
   background: url("https://media.everlane.com/image/upload/c_fill,dpr_2.0,f_auto,g_face,h_700,q_auto,w_700/v1/i/4a5e24a2_85d5.jpg")
     center/cover no-repeat;
+  
 }
 
 
@@ -132,6 +133,8 @@
 
   .about-hero {
     height: 60vh;
+      width: 100vw;
+
   }
 
   .about-hero h1 {
@@ -153,6 +156,8 @@
 
   .about-image-full {
     height: 38vh;
+      width: 100vw;
+
   }
 
 
