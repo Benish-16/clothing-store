@@ -17,7 +17,7 @@ export default function ForgotPassword({ setStep, setEmail}) {
       body: JSON.stringify({ email: emailInput }),
     });
 
-    const _data = await res.json();
+    const data = await res.json();
 
     if (res.ok) {
       setEmail(emailInput);
