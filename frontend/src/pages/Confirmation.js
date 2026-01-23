@@ -18,7 +18,7 @@ export default function Confirmation() {
           Order details have been sent to your email.
         </p>
         <button
-          className="btn btn-primary mt-4"
+          className="btn btn-dark mt-4"
           onClick={() => navigate("/")}
         >
           Back to Home
