@@ -5,7 +5,7 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [processing, setProcessing] = useState(false);
-  const [alertMsg, setAlertMsg] = useState("");
+ 
 
   const token = localStorage.getItem("token");
 
@@ -149,11 +149,7 @@ export const CartProvider = ({ children }) => {
         setCartItems,
       }}
     >
-      {processing && (
-        <div className="alert alert-warning text-center m-0">
-          {alertMsg}
-        </div>
-      )}
+
       {children}
     </CartContext.Provider>
   );
