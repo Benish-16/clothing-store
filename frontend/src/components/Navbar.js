@@ -20,7 +20,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="navbar bg-white fixed-top sticky-top position-relative" style={{ zIndex: 1050 }}>
+     <nav className="navbar bg-white fixed-top" style={{ zIndex: 1050 }}>
       <div className="container-fluid px-3 px-lg-4">
 
         <ul className="navbar-nav flex-row gap-4 d-none d-lg-flex">
