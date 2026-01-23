@@ -53,7 +53,10 @@ export default function Navbar() {
           )}
 
           <li className="nav-item">
-            <Link to="/cart" className="nav-link"><i className="bi bi-bag"></i></Link>
+        <Link to="/cart" className="nav-link">
+  <i className="bi bi-bag" style={{ fontSize: '1.8rem' }}></i>
+</Link>
+
           </li>
         </ul>
 
