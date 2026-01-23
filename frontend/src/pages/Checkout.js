@@ -9,17 +9,14 @@ export default function Checkout() {
   const navigate = useNavigate();
   const location = useLocation();
 
-
   const data =
-    location.state ||
-    JSON.parse(localStorage.getItem("checkoutData"));
+    location.state || JSON.parse(localStorage.getItem("checkoutData"));
 
   if (!data) {
     return <Navigate to="/cart" replace />;
   }
 
   const { cartItems, subtotal, shippingCost, deliveryType, total } = data;
-
 
   const [otpSent, setOtpSent] = useState(
     localStorage.getItem("otpSent") === "true"
@@ -30,7 +27,6 @@ export default function Checkout() {
   );
 
 
-
   const handleChange = (value, index) => {
     if (!/^\d?$/.test(value)) return;
 
@@ -39,16 +35,16 @@ export default function Checkout() {
     setOtp(newOtp);
     localStorage.setItem("otp", JSON.stringify(newOtp));
 
-  
+
+    if (value && index < otp.length - 1) {
       document.getElementById(`otp-${index + 1}`)?.focus();
     }
 
-
+ 
     if (!value && index > 0) {
       document.getElementById(`otp-${index - 1}`)?.focus();
     }
   };
-
 
 
   const sendOtp = async (e) => {
@@ -85,27 +81,69 @@ export default function Checkout() {
     }
   };
 
-  
-const handleChange = (value, index) => {
-  if (!/^\d?$/.test(value)) return;
-
-  const newOtp = [...otp];
-  newOtp[index] = value;
-  setOtp(newOtp);
-  localStorage.setItem("otp", JSON.stringify(newOtp));
-
-
-  if (value && index < otp.length - 1) {
-    document.getElementById(`otp-${index + 1}`)?.focus();
-  }
-
  
-  if (!value && index > 0) {
-    document.getElementById(`otp-${index - 1}`)?.focus();
-  }
-};
+  const handleCheckout = async (e) => {
+    e.preventDefault();
 
+    const email = localStorage.getItem("checkoutEmail");
+    const finalOtp = otp.join("");
 
+    if (finalOtp.length !== 6) {
+      showAlert("Enter complete OTP", "danger");
+      return;
+    }
+
+    try {
+      const verifyRes = await fetch(
+        "https://clothing-store-backc-p6nl.onrender.com/api/order/verify-otp",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, otp: finalOtp }),
+        }
+      );
+
+      const verifyData = await verifyRes.json();
+
+      if (!verifyRes.ok) {
+        showAlert(verifyData.error || "Wrong OTP", "danger");
+        return;
+      }
+
+      showAlert("OTP verified", "success");
+
+      const payload = {
+        cartItems,
+        subtotal,
+        shippingCost,
+        deliveryType,
+        total,
+        paymentMethod: "Card",
+      };
+
+      await fetch(
+        "https://clothing-store-backc-p6nl.onrender.com/api/order/create",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": localStorage.getItem("token"),
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      clearCart();
+      localStorage.removeItem("otpSent");
+      localStorage.removeItem("otp");
+      localStorage.removeItem("checkoutEmail");
+      localStorage.removeItem("checkoutData");
+
+      navigate("/confirmation");
+    } catch (err) {
+      showAlert("Something went wrong", "danger");
+    }
+  };
 
   return (
     <div className="container py-5">
@@ -118,6 +156,7 @@ const handleChange = (value, index) => {
           className="form-control mb-3"
           placeholder="Email"
           defaultValue={localStorage.getItem("checkoutEmail") || ""}
+          disabled={otpSent}
           required
         />
 
